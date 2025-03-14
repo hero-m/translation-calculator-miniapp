@@ -270,7 +270,7 @@
 
       for (const [key, value] of Object.entries(calculated_rates)) {
         if (value == 0) {
-          _rtctext('result-' + key, 'Select more fields');
+          _rtctext('result-' + key, 'فیلدهای بیشتری را مشخص کنید');
         } else {
           if (key == 'base-rate') {
             _rtctext('result-base-rate', get_work_unit_per_item() + ' ' + _rtcformat(value, 0) + ' ' + CURRENCY);
