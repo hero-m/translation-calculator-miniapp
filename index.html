@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Translation Calculator</title>
+  <title>نرخ‌نامه ترجمه</title>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -23,130 +23,133 @@
 </head>
 <body>
   <div class="container">
+    <div id="intro">
+      <span>نرخ‌نامه‌ی ترجمه، نیمه‌ی دوم سال ۱۴۰۳</span>
+      <span>این نرخ‌نامه مطابق با قانون کار ایران و با درنظرگرفتن ساعت کار روزانهٔ مترجمان تنظیم شده است.</span>
+    </div>
     <form id="rtc-rate-calculate-form">
-      <h2>نرخ‌نامه <span id="rtc-form-title"></span></h2>
       <div>
-        <label for="rtc-translation-type" class="form-label">Translation Type</label>
+        <label for="rtc-translation-type" class="form-label">حوزه‌ی ترجمه</label>
         <select id="rtc-translation-type" class="form-control">
-          <option value="" selected>Select an option</option>
-          <option value="text">Text</option>
-          <option value="news">News</option>
-          <option value="interpret">Interpret</option>
-          <option value="media">Media</option>
-          <option value="apps">Websites & Applications</option>
+          <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+          <option value="text">ترجمه‌ی کتبی</option>
+          <option value="news">ترجمه‌ی خبر</option>
+          <option value="interpret">ترجمه‌ی شفاهی</option>
+          <option value="media">ترجمه‌ی رسانه</option>
+          <option value="apps">بومی‌سازی وبگاه و اپلیکیشن</option>
         </select>
       </div>
       <div id="rtc-text-parameters" class="rtc-parameter-group" style="display: none">
         <div>
-          <label for="rtc-text-translation-type" class="form-label">Text Translation Type</label>
+          <label for="rtc-text-translation-type" class="form-label">نوع ترجمه‌ی کتبی</label>
           <select id="rtc-text-translation-type" class="form-control multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="human">Human Translation</option>
-            <option value="machine">Machine Translation</option>
-            <option value="analysis">Quality Analysis</option>
-            <option value="edit-human">Edit Human Translation</option>
-            <option value="edit-machine">Edit Machine Translation</option>
-            <option value="author">Author Content (Search & Translate)</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="human">ترجمه‌ی انسانی</option>
+            <option value="machine">ترجمه‌ی ماشینی</option>
+            <option value="analysis">ارزیابی کیفیت ترجمه</option>
+            <option value="edit-human">اصلاح ترجمه‌ی انسانی</option>
+            <option value="edit-machine">اصلاح ترجمه‌ی ماشینی</option>
+            <option value="author">تولید محتوا (جستجو + ترجمه)</option>
           </select>
         </div>
         <div id="rtc-text-translation-skill-parameter">
-          <label for="rtc-text-translation-skill" class="form-label">Translation Skill Level</label>
+          <label for="rtc-text-translation-skill" class="form-label">رتبه‌ی مترجم</label>
           <select id="rtc-text-translation-skill" class="form-control rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="level-1">Skill Level 1 (A little Experience, A small Vocabulary)</option>
-            <option value="level-2">Skill Level 2 (A little Experience, A large Vocabulary)</option>
-            <option value="level-3">Skill Level 3 (A lot of Experience, A small Vocabulary)</option>
-            <option value="level-4">Skill Level 4 (A lot of Experience, A large Vocabulary)</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="level-1">مترجم سطح ۱ (مهارت تجربی کم، دانش فنی کم)</option>
+            <option value="level-2">مترجم سطح ۲ (مهارت تجربی کم، دانش فنی قابل‌قبول)</option>
+            <option value="level-3">مترجم سطح ۳ (مهارت تجربی قابل‌قبول، دانش فنی کم)</option>
+            <option value="level-4">مترجم سطح ۳ (مهارت تجربی قابل‌قبول، دانش فنی قابل‌قبول)</option>
           </select>
         </div>
         <div>
-          <label for="rtc-text-translation-speed" class="form-label">Translation Speed (Daily Rate)</label>
+          <label for="rtc-text-translation-speed" class="form-label">زمان تحویل</label>
           <select id="rtc-text-translation-speed" class="form-control rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="regular">Regular (2500 words)</option>
-            <option value="fast">Fast (3500 words)</option>
-            <option value="urgent">Urgent (5000 words)</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="regular">عادی (روزانه ۲۵۰۰ کلمه)</option>
+            <option value="fast">نیمه‌فوری (روزانه ۳۵۰۰ کلمه)</option>
+            <option value="urgent">فوری (روزانه ۵۰۰۰ کلمه)</option>
           </select>
         </div>
         <div>
-          <label for="rtc-text-translation-topic" class="form-label">Translation Topic</label>
+          <label for="rtc-text-translation-topic" class="form-label">موضوع ترجمه</label>
           <select id="rtc-text-translation-topic" class="form-control rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="general">General</option>
-            <option value="engineering">Engineering</option>
-            <option value="executive">Executive</option>
-            <option value="business">Business</option>
-            <option value="medical">Medical</option>
-            <option value="legal">Legal</option>
-            <option value="abstract">Abstract</option>
-            <option value="literature">Literature</option>
-            <option value="other">Other</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="general">عمومی</option>
+            <option value="engineering">فنی مهندسی</option>
+            <option value="executive">اجرایی</option>
+            <option value="business">تجاری</option>
+            <option value="medical">پزشکی</option>
+            <option value="legal">قضایی</option>
+            <option value="abstract">نظری فلسفی</option>
+            <option value="literature">ادبی</option>
+            <option value="other">سایر</option>
           </select>
         </div>
         <div>
-          <label for="rtc-text-translation-language" class="form-label">Translation Language</label>
+          <label for="rtc-text-translation-language" class="form-label">زبان ترجمه</label>
           <select id="rtc-text-translation-language" class="form-select rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="en-to-fa">English to Farsi</option>
-            <option value="fa-to-en">Farsi to English</option>
-            <option value="langs1-to-fa">German, Arabic, ... to Farsi</option>
-            <option value="fa-to-langs1">Farsi to German, Arabic, ...</option>
-            <option value="langs2-to-fa">Japanese, Chinese, ... to Farsi</option>
-            <option value="fa-to-langs2">Farsi to Japanese, Chinese, ...</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="en-to-fa">انگلیسی به فارسی</option>
+            <option value="fa-to-en">فارسی به انگلیسی</option>
+            <option value="langs1-to-fa">آلمانی، عربی، روسی، ترکی استانبولی، ترکی آذربایجانی، پرتغالی، ایتالیایی، فرانسوی، اسپانیایی، هلندی، تاجیک، سوئدی، هلندی، کردی به فارسی</option>
+            <option value="fa-to-langs1">فارسی به آلمانی، عربی، روسی، ترکی استانبولی، ترکی آذربایجانی، پرتغالی، ایتالیایی، فرانسوی، اسپانیایی، هلندی، تاجیک، سوئدی، هلندی، کردی</option>
+            <option value="langs2-to-fa">ژاپنی، چینی، اردو، ارمنی، پشتو، دری، تاجیک، رومانیایی، کره‌ای، گرجی، لهستانی، مجاری به فارسی</option>
+            <option value="fa-to-langs2">فارسی به ژاپنی، چینی، اردو، ارمنی، پشتو، دری، تاجیک، رومانیایی، کره‌ای، گرجی، لهستانی، مجاری</option>
           </select>
         </div>
       </div>
       <div id="rtc-interpret-parameters" class="rtc-parameter-group" style="display: none">
         <div>
-          <label for="rtc-interpret-type" class="form-label">Interpretation Type</label>
+          <label for="rtc-interpret-type" class="form-label">نوع ترجمه‌ی شفاهی</label>
           <select id="rtc-interpret-type" class="form-control rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="simultaneous">Simultaneous</option>
-            <option value="consecutive">Consecutive</option>
-            <option value="remote">Remote</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="simultaneous">همزمان</option>
+            <option value="consecutive">پیاپی - همراه</option>
+            <option value="remote">تلفنی</option>
           </select>
         </div>
       </div>
       <div id="rtc-media-parameters" class="rtc-parameter-group" style="display: none">
         <div>
-          <label for="rtc-media-type" class="form-label">Media Translation Type</label>
+          <label for="rtc-media-type" class="form-label">نوع ترجمه‌ی رسانه</label>
           <select id="rtc-media-type" class="form-control multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="only-transcribe">Only Transcribe</option>
-            <option value="only-translate">Only Translate</option>
-            <option value="transcribe-translate">Transcribe & Translate</option>
-            <option value="translate-subtitles">Translate Subtitles</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="only-transcribe">پیاده‌سازی بدون ترجمه</option>
+            <option value="only-translate">ترجمه بدون پیاده‌سازی</option>
+            <option value="transcribe-translate">پیاده‌سازی و ترجمه</option>
+            <option value="translate-subtitles">ترجمه‌ی زیرنویس</option>
           </select>
         </div>
       </div>
       <div id="rtc-common-parameters" class="rtc-parameter-group" style="display: none">
         <div id="rtc-common-language-parameter" class="rtc-parameter-group" style="display: none">
-          <label for="rtc-common-language" class="form-label">Translation Language</label>
+          <label for="rtc-common-language" class="form-label">زبان ترجمه</label>
           <select id="rtc-common-language" class="form-select">
-            <option value="" selected>Select an option</option>
-            <option value="en-to-fa">English to Farsi</option>
-            <option value="fa-to-en">Farsi to English</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="en-to-fa">انگلیسی به فارسی</option>
+            <option value="fa-to-en">فارسی به انگلیسی</option>
           </select>
         </div>
         <div>
-          <label for="rtc-common-skill" class="form-label">Skill Level</label>
+          <label for="rtc-common-skill" class="form-label">رتبه‌ی مترجم</label>
           <select id="rtc-common-skill" class="form-control rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="level-1-2">Skill Level 1 & 2</option>
-            <option value="level-3-4">Skill Level 3 & 4</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="level-1-2">مترجم سطح ۱ و ۲</option>
+            <option value="level-3-4">مترجم سطح ۳ و ۴</option>
           </select>
         </div>
         <div>
-          <label for="rtc-common-topic" class="form-label">Topic</label>
+          <label for="rtc-common-topic" class="form-label">موضوع ترجمه</label>
           <select id="rtc-common-topic" class="form-control rtc-multiplier">
-            <option value="" selected>Select an option</option>
-            <option value="general">General</option>
-            <option value="special">Special</option>
+            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
+            <option value="general">عمومی</option>
+            <option value="special">اختصاصی</option>
           </select>
         </div>
       </div>
       <div id="rtc-work-parameter" class="rtc-parameter-group" style="display: none">
-        <label for="rtc-work-amount" class="form-label">Work Amount</label>
+        <label for="rtc-work-amount" class="form-label">حجم کار</label>
         <div class="input-group">
           <input id="rtc-work-amount" class="form-control" type="number" step="1" min="0">
           <div class="input-group-append">
@@ -157,22 +160,22 @@
     </form>
     <div id="rtc-result" class="container">
       <div class="row">
-        Base Rate:
+        نرخ پایه:
         <span id="rtc-result-base-rate"></span>
 
       </div>
       <div class="row">
-        Multiplier:
+        ضریب:
         <span id="rtc-result-multiplier"></span>
 
       </div>
       <div class="row">
-        Combined Rate:
+        نرخ با ضریب:
         <span id="rtc-result-combined-rate"></span>
       </div>
 
       <div class="row">
-        Total Price:
+        حداقل دستمزد:
         <span id="rtc-result-total-price"></span>
       </div>
     </div>
