@@ -1,0 +1,94 @@
+{
+    "last-update": "مهر ۱۴۰۲",
+    "base-values": {
+        "text": {
+            "human": 150,
+            "machine": 50,
+            "analysis": 10,
+            "edit-human": 100,
+            "edit-machine": 150,
+            "author": 200
+        },
+        "news": 15000,
+        "interpret": {
+            "simultaneous": {
+                "en-to-fa": 500000,
+                "fa-to-en": 650000
+            },
+            "consecutive": {
+                "en-to-fa": 350000,
+                "fa-to-en": 450000
+            },
+            "remote": {
+                "en-to-fa": 300000,
+                "fa-to-en": 350000
+            }
+        },
+        "media": {
+            "only-transcribe": {
+                "en-to-fa": 10000,
+                "fa-to-en": 20000
+            },
+            "only-translate": {
+                "en-to-fa": 20000,
+                "fa-to-en": 30000
+            },
+            "transcribe-translate": {
+                "en-to-fa": 35000,
+                "fa-to-en": 55000
+            },
+            "translate-subtitles": {
+                "en-to-fa": 1000,
+                "fa-to-en": 1500
+            }
+        },
+        "apps": {
+            "en-to-fa": 200,
+            "fa-to-en": 350
+        }
+    },
+    "multipliers": {
+        "text": {
+            "text-translation-skill": {
+                "level-1": 1,
+                "level-2": 1.2,
+                "level-3": 1.4,
+                "level-4": 1.6
+            },
+            "text-translation-speed": {
+                "regular": 1,
+                "fast": 1.4,
+                "urgent": 1.8
+            },
+            "text-translation-topic": {
+                "general": 1,
+                "engineering": 1.2,
+                "executive": 1.2,
+                "business": 1.2,
+                "medical": 1.4,
+                "legal": 1.4,
+                "abstract": 1.6,
+                "literature": 1.6,
+                "other": 1.2
+            },
+            "text-translation-language": {
+                "en-to-fa": 1,
+                "fa-to-en": 2,
+                "langs1-to-fa": 1.6,
+                "fa-to-langs1": 3,
+                "langs2-to-fa": 2,
+                "fa-to-langs2": 4
+            }
+        },
+        "common": {
+            "common-skill": {
+                "level-1-2": 1,
+                "level-3-4": 1.2
+            },
+            "common-topic": {
+                "general": 1,
+                "special": 1.2
+            }
+        }
+    }
+}
