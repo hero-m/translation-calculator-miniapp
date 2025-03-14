@@ -226,7 +226,7 @@
       fetch_translation_rates(0).then(function (result) {
         if (result != null) {
           calculator_definitions.translation_rates = result;
-          _rtctext('form-title', result['last-update']);
+          // _rtctext('form-title', result['last-update']);
           document.getElementById('rtc-translation-type').addEventListener('change', update_translation_type);
           document.getElementById('rtc-text-translation-type').addEventListener('change', update_text_translation_type);
           document.getElementById('rtc-rate-calculate-form').querySelectorAll('select, input').forEach(element => {
