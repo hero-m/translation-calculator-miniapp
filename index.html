@@ -18,7 +18,33 @@
     body {
       font-family: "Vazirmatn", sans-serif;
     }
-    
+
+    .card-box {
+      height: var(--tg-viewport-stable-height);
+      padding: 15px;
+    }
+
+    .card-item {
+      padding: 15px;
+      border: 5px solid #d97645;
+      border-radius: 5px;
+      height: 100%;
+    }
+
+    #intro-box {
+      text-align: center;
+    }
+
+    #intro-title {
+      color: #d97645;
+      font-weight: bold;
+      border-bottom: 2px solid #d97645;
+      display: inline-block;
+      padding: 0 10px;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+    }
+
     #rtc-rate-calculate-form {
       margin-top: 100px;
     }
@@ -27,14 +53,20 @@
     #rtc-rate-calculate-form select {
       margin-bottom: 20px;
     }
+
+
     
   </style>
 </head>
 <body>
   <div class="container">
-    <div id="intro">
-      <span>نرخ‌نامه‌ی ترجمه، نیمه‌ی دوم سال ۱۴۰۳</span>
-      <span>این نرخ‌نامه مطابق با قانون کار ایران و با درنظرگرفتن ساعت کار روزانهٔ مترجمان تنظیم شده است.</span>
+    <div class="card-box">
+      <div id="card-1" class="card-item">
+        <div id="intro-box">
+          <div id="intro-title">نرخ‌نامه‌ی ترجمه — نیمه‌ی دوم سال ۱۴۰۳</div>
+          <div id="Intro-desc">این نرخ‌نامه مطابق با قانون کار ایران و با درنظرگرفتن ساعت کار روزانهٔ مترجمان تنظیم شده است.</div>
+        </div>
+      </div>
     </div>
     <form id="rtc-rate-calculate-form">
       <div>
