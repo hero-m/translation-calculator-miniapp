@@ -19,19 +19,38 @@
       font-family: "Vazirmatn", sans-serif;
     }
 
+    .divider-line {
+      color: rgb(253, 205, 116);
+      font-size: 2em;
+      line-height: 1em;
+    }
+
+    .divider {
+      margin: 25px 0;
+    }
+
     .card-box {
-      height: var(--tg-viewport-stable-height);
-      padding: 20px;
-      position: relative;
-      margin-top: -25px;
+      min-height: var(--tg-viewport-stable-height);
+      text-align: center;
     }
 
     .card-item {
       padding: 15px 10px;
       border: 5px solid #d97645;
-      border-radius: 5px;
-      height: 100%;
-      position: relative;
+      border-radius: 5px;/*
+      height: 100%; */
+    }
+    
+    .card-footer div {
+      padding: 6px 0;
+      border-bottom: 2px solid #eee;
+      width: 280px;
+      max-width: 100%;
+      margin: 0 auto;
+    }
+
+    .card-footer div:last-child {
+      border-bottom: none;
     }
 
     #intro-box {
@@ -59,18 +78,17 @@
     
     .action-box {
       width: 100%;
-      position: absolute;
-      bottom: 0;
     }
 
     .action-btn {
       -webkit-clip-path: url(#action-button-clip-path2);
       clip-path: url(#action-button-clip-path2);
-      width: 320px;
+      width: 100%;
+      max-width: 225px;
       margin: 10px auto;
       text-align: center;
       color: white;
-      line-height: 2.2em;
+      line-height: 2.4em;
       cursor: pointer;
     }
 
@@ -116,11 +134,34 @@
           <div id="Intro-desc">این نرخ‌نامه مطابق با قانون کار ایران و با درنظرگرفتن ساعت کار روزانهٔ مترجمان تنظیم شده است.</div>
         </div>
 
+        <div class="divider">
+          <div class="divider-line">. . .</div>
+          <div class="divider-line">. . .</div>
+          <div class="divider-line">. . .</div>
+        </div>
+
         <div class="action-box">
+          <div class="actions-description">برای مشاهده‌ی نرخ‌ها، حوزه‌ی مورد نظرتان را انتخاب کنید.</div>
           <div class="action-btn action-btn-1">ترجمه کتبی</div>
           <div class="action-btn action-btn-2">ترجمه شفاهی</div>
           <div class="action-btn action-btn-3">ترجمه رسانه</div>
-          <div class="action-btn action-btn-4">بومی‌سازی وبگاه و اپلیکیشن</div>
+          <div class="action-btn action-btn-4">ترجمه نرم‌افزار</div>
+        </div>
+
+        <div class="divider">
+          <div class="divider-line">. . .</div>
+          <div class="divider-line">. . .</div>
+          <div class="divider-line">. . .</div>
+        </div>
+        
+        <div class="card-footer">
+          <div>توضیح نرخ‌نامه</div>
+
+          <div><a href="/assets/نرخ_نامه_ترجمه_نیم_سال_دوم_۱۴۰۳_مترجم_شدن.pdf">دانلود پی‌دی‌اف نرخ‌نامهٔ ترجمه</a></div>
+
+          <div>برای اثرگذاری بیشتر به اشتراک بگذارید. ❤️</div>
+          
+          <div><a href="https://t.me/motarjemshodan">کانال تلگرامی مترجم‌شدن</a></div>
         </div>
       </div>
     </div>
@@ -132,7 +173,7 @@
           <option value="text">ترجمه‌ی کتبی</option>
           <option value="interpret">ترجمه‌ی شفاهی</option>
           <option value="media">ترجمه‌ی رسانه</option>
-          <option value="apps">بومی‌سازی وبگاه و اپلیکیشن</option>
+          <option value="apps">بومی‌سازی</option>
         </select>
       </div>
       <div id="rtc-text-parameters" class="rtc-parameter-group" style="display: none">
