@@ -34,7 +34,6 @@
         <select id="rtc-translation-type" class="form-control">
           <option value="" selected>گزینه‌ای را انتخاب کنید</option>
           <option value="text">ترجمه‌ی کتبی</option>
-          <option value="news">ترجمه‌ی خبر</option>
           <option value="interpret">ترجمه‌ی شفاهی</option>
           <option value="media">ترجمه‌ی رسانه</option>
           <option value="apps">بومی‌سازی وبگاه و اپلیکیشن</option>
@@ -193,7 +192,6 @@
     var calculator_definitions = {
       work_units: {
         'text': 'کلمه',
-        'news': 'مقاله',
         'interpret': 'ساعت',
         'media': {
           'translate_subtitles': 'خط',
@@ -204,7 +202,6 @@
 
       baserate_parameters: {
         'text': ['text-translation-type'],
-        'news': [],
         'interpret': ['interpret-type', 'common-language'],
         'media': ['media-type', 'common-language'],
         'apps': ['common-language']
@@ -213,7 +210,6 @@
       parameter_groups: {
         '': [],
         'text': [PREFIX + 'text-parameters', PREFIX + 'work-parameter'],
-        'news': [PREFIX + 'common-parameters', PREFIX + 'work-parameter'],
         'interpret': [PREFIX + 'interpret-parameters', PREFIX + 'common-parameters', PREFIX + 'common-language-parameter', PREFIX + 'work-parameter'],
         'media': [PREFIX + 'media-parameters', PREFIX + 'common-parameters', PREFIX + 'common-language-parameter', PREFIX + 'work-parameter'],
         'apps': [PREFIX + 'common-parameters', PREFIX + 'common-language-parameter', PREFIX + 'work-parameter']
