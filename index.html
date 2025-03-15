@@ -21,14 +21,17 @@
 
     .card-box {
       height: var(--tg-viewport-stable-height);
-      padding: 15px;
+      padding: 20px;
+      position: relative;
+      margin-top: -25px;
     }
 
     .card-item {
-      padding: 15px;
+      padding: 15px 10px;
       border: 5px solid #d97645;
       border-radius: 5px;
       height: 100%;
+      position: relative;
     }
 
     #intro-box {
@@ -53,18 +56,71 @@
     #rtc-rate-calculate-form select {
       margin-bottom: 20px;
     }
+    
+    .action-box {
+      width: 100%;
+      position: absolute;
+      bottom: 0;
+    }
 
+    .action-btn {
+      -webkit-clip-path: url(#action-button-clip-path2);
+      clip-path: url(#action-button-clip-path2);
+      width: 320px;
+      margin: 10px auto;
+      text-align: center;
+      color: white;
+      line-height: 2.2em;
+      cursor: pointer;
+    }
+
+    .action-btn-1 {
+      background: #4285f4;
+    }
+
+    .action-btn-2 {
+      background: #ea4335;
+    }
+
+    .action-btn-3 {
+      background: #fbbc05;
+    }
+
+    .action-btn-4 {
+      background: #34a853;
+    }
+    
 
     
   </style>
 </head>
 <body>
+  <svg width="0" height="0">
+    <defs>
+      <clipPath id="action-button-clip-path" clipPathUnits="objectBoundingBox">
+        <path d="M0,0 0.79,0 0.83,0.5 0.79,1 0.81,1 0.85,0.5 0.81,0 0.86,0 0.9,0.5 0.86,1 0.88,1 0.92,0.5 0.88,0 0.93,0 0.97,0.5 0.93,1 0,1z" />
+      </clipPath>
+      <clipPath id="action-button-clip-path2" clipPathUnits="objectBoundingBox">
+        <path d="M0,0.5 0.04,0 0.08,0 0.04,0.5 0.08,1 0.1,1 0.06,0.5 0.1,0 0.14,0 0.1,0.5 0.14,1 0.16,1 0.12,0.5 0.16,0
+        0.88,0 0.84,0.5 0.88,1 0.90,1 0.86,0.5 0.90,0
+        0.94,0 0.90,0.5 0.94,1 0.96,1 0.92,0.5 0.96,0
+        1,0 0.96,0.5 1,1 0.04,1z" />
+      </clipPath>
+    </defs>
+  </svg>
   <div class="container">
     <div class="card-box">
       <div id="card-1" class="card-item">
         <div id="intro-box">
           <div id="intro-title">نرخ‌نامه‌ی ترجمه — نیمه‌ی دوم سال ۱۴۰۳</div>
           <div id="Intro-desc">این نرخ‌نامه مطابق با قانون کار ایران و با درنظرگرفتن ساعت کار روزانهٔ مترجمان تنظیم شده است.</div>
+        </div>
+
+        <div class="action-box">
+          <div class="action-btn action-btn-1">ترجمه کتبی</div>
+          <div class="action-btn action-btn-2">ترجمه شفاهی</div>
+          <div class="action-btn action-btn-3">ترجمه رسانه</div>
+          <div class="action-btn action-btn-4">بومی‌سازی وبگاه و اپلیکیشن</div>
         </div>
       </div>
     </div>
