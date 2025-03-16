@@ -34,6 +34,11 @@
     .card-item {
       border: 5px solid #d97645;
       border-radius: 5px;
+      display: none;
+    }
+
+    .card-item.card-visible {
+      display: block;
     }
 
     .card-item > div {
@@ -81,8 +86,8 @@
     }
 
     .action-btn {
-      -webkit-clip-path: url(#action-button-clip-path2);
-      clip-path: url(#action-button-clip-path2);
+      -webkit-clip-path: url(#action-button-clip-path);
+      clip-path: url(#action-button-clip-path);
       width: 100%;
       max-width: 225px;
       margin: 10px auto;
@@ -92,20 +97,51 @@
       cursor: pointer;
     }
 
-    .action-btn-1 {
+    .action-btn.choice-text {
       background: #4285f4;
     }
 
-    .action-btn-2 {
+    .action-btn.choice-interpret {
       background: #ea4335;
     }
 
-    .action-btn-3 {
+    .action-btn.choice-media {
       background: #fbbc05;
     }
 
-    .action-btn-4 {
+    .action-btn.choice-apps {
       background: #34a853;
+    }
+
+    .select-field {
+      width: 100%;
+      float: right;
+      border: 3px solid #d97645;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .select-field::after {
+      content: "▼";
+      text-align: left;
+      float: left;
+      padding: 7px 7px 0px;
+      display: block;
+      color: #d97645;
+    }
+
+
+    .select-label {
+      float: right;
+      padding: 5px;
+      border-radius:0 20px 20px 0;
+      background-color: #d97645;
+    }
+
+    .select-choice {
+      float: right;
+      padding: 5px;
+      border-radius: 20px 0 0 20px;
     }
     
   </style>
@@ -114,19 +150,16 @@
   <svg width="0" height="0">
     <defs>
       <clipPath id="action-button-clip-path" clipPathUnits="objectBoundingBox">
-        <path d="M0,0 0.79,0 0.83,0.5 0.79,1 0.81,1 0.85,0.5 0.81,0 0.86,0 0.9,0.5 0.86,1 0.88,1 0.92,0.5 0.88,0 0.93,0 0.97,0.5 0.93,1 0,1z" />
-      </clipPath>
-      <clipPath id="action-button-clip-path2" clipPathUnits="objectBoundingBox">
         <path d="M0,0.5 0.04,0 0.08,0 0.04,0.5 0.08,1 0.1,1 0.06,0.5 0.1,0 0.14,0 0.1,0.5 0.14,1 0.16,1 0.12,0.5 0.16,0
-        0.88,0 0.84,0.5 0.88,1 0.90,1 0.86,0.5 0.90,0
-        0.94,0 0.90,0.5 0.94,1 0.96,1 0.92,0.5 0.96,0
-        1,0 0.96,0.5 1,1 0.04,1z" />
+                  0.88,0 0.84,0.5 0.88,1 0.90,1 0.86,0.5 0.90,0
+                  0.94,0 0.90,0.5 0.94,1 0.96,1 0.92,0.5 0.96,0
+                  1,0 0.96,0.5 1,1 0.04,1z" />
       </clipPath>
     </defs>
   </svg>
   <div class="container">
     <div class="card-box">
-      <div id="card-1" class="card-item">
+      <div id="card-1" class="card-item card-visible">
         <div id="intro-box">
           <div id="intro-title">نرخ‌نامه‌ی ترجمه — نیمه‌ی دوم سال ۱۴۰۳</div>
           <div id="Intro-desc">این نرخ‌نامه مطابق با قانون کار ایران و با درنظرگرفتن ساعت کار روزانهٔ مترجمان تنظیم شده است.</div>
@@ -135,12 +168,12 @@
         <div class="divider">
         </div>
 
-        <div class="action-box">
+        <div class="action-box action-step-1">
           <div class="actions-description">برای مشاهده‌ی نرخ‌ها، حوزه‌ی مورد نظرتان را انتخاب کنید.</div>
-          <div class="action-btn action-btn-1">ترجمه کتبی</div>
-          <div class="action-btn action-btn-2">ترجمه شفاهی</div>
-          <div class="action-btn action-btn-3">ترجمه رسانه</div>
-          <div class="action-btn action-btn-4">ترجمه نرم‌افزار</div>
+          <div class="action-btn choice-text" action-value="text">ترجمه کتبی</div>
+          <div class="action-btn choice-interpret" action-value="interpret">ترجمه شفاهی</div>
+          <div class="action-btn choice-media" action-value="media">ترجمه رسانه</div>
+          <div class="action-btn choice-apps" action-value="apps">ترجمه نرم‌افزار</div>
         </div>
 
         <div class="divider">
@@ -149,36 +182,45 @@
         <div class="card-footer">
           <div>توضیح نرخ‌نامه</div>
 
-          <div><a href="/translation-calculator-miniapp/assets/نرخ_نامه_ترجمه_نیم_سال_دوم_۱۴۰۳_مترجم_شدن.pdf">دانلود پی‌دی‌اف نرخ‌نامهٔ ترجمه</a></div>
+          <div><a id="rates-download-link" href="https://hero-m.github.io/translation-calculator-miniapp/assets/نرخ_نامه_ترجمه_نیم_سال_دوم_۱۴۰۳_مترجم_شدن.pdf">دانلود پی‌دی‌اف نرخ‌نامهٔ ترجمه</a></div>
 
           <div>برای اثرگذاری بیشتر به اشتراک بگذارید. ❤️</div>
           
           <div><a href="https://t.me/motarjemshodan">کانال تلگرامی مترجم‌شدن</a></div>
         </div>
       </div>
-    </div>
-    <form id="rtc-rate-calculate-form">
-      <div>
-        <label for="rtc-translation-type" class="form-label">حوزه‌ی ترجمه</label>
-        <select id="rtc-translation-type" class="form-control">
-          <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-          <option value="text">ترجمه‌ی کتبی</option>
-          <option value="interpret">ترجمه‌ی شفاهی</option>
-          <option value="media">ترجمه‌ی رسانه</option>
-          <option value="apps">بومی‌سازی</option>
-        </select>
+      
+      <div id="card-2" class="card-item">
+        <div class="select-group">
+          <div class="select-field">
+            <div class="select-label text-service">نوع ترجمه‌ی کتبی</div>
+            <div class="select-choice choice-none">گزینه‌ای را انتخاب کنید</div>
+          </div>
+          <div class="select-items">
+            <div class="select-item">ترجمه‌ی انسانی</div>
+            <div class="select-item">ترجمه‌ی ماشینی</div>
+            <div class="select-item">ارزیابی کیفیت ترجمه</div>
+            <div class="select-item">اصلاح ترجمه‌ی انسانی</div>
+            <div class="select-item">اصلاح ترجمه‌ی ماشینی</div>
+            <div class="select-item">تولید محتوا (جستجو + ترجمه)</div>
+          </div>
+        </div>
+
       </div>
+    </div>
+    <!-- translation-type -->
+    <form id="rtc-rate-calculate-form">
       <div id="rtc-text-parameters" class="rtc-parameter-group" style="display: none">
         <div>
           <label for="rtc-text-translation-type" class="form-label">نوع ترجمه‌ی کتبی</label>
           <select id="rtc-text-translation-type" class="form-control multiplier">
-            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-            <option value="human">ترجمه‌ی انسانی</option>
-            <option value="machine">ترجمه‌ی ماشینی</option>
-            <option value="analysis">ارزیابی کیفیت ترجمه</option>
-            <option value="edit-human">اصلاح ترجمه‌ی انسانی</option>
-            <option value="edit-machine">اصلاح ترجمه‌ی ماشینی</option>
-            <option value="author">تولید محتوا (جستجو + ترجمه)</option>
+            <option value="" selected></option>
+            <option value="human"></option>
+            <option value="machine"></option>
+            <option value="analysis"></option>
+            <option value="edit-human"></option>
+            <option value="edit-machine"></option>
+            <option value="author"></option>
           </select>
         </div>
         <div id="rtc-text-translation-skill-parameter">
@@ -353,15 +395,33 @@
         if (result != null) {
           calculator_definitions.translation_rates = result;
           // _rtctext('form-title', result['last-update']);
-          document.getElementById('rtc-translation-type').addEventListener('change', update_translation_type);
+          // document.getElementById('rtc-translation-type').addEventListener('change', update_translation_type);
           document.getElementById('rtc-text-translation-type').addEventListener('change', update_text_translation_type);
           document.getElementById('rtc-rate-calculate-form').querySelectorAll('select, input').forEach(element => {
             element.addEventListener('change', display_rates);
             element.addEventListener('input', display_rates);
           });
 
-          update_translation_type();
-          display_rates();
+          document.querySelectorAll('.action-step-1 .action-btn').forEach(element => {
+            element.addEventListener('click', event => {
+              document.getElementById('card-2').classList.add('card-visible');
+              document.getElementById('card-1').classList.remove('card-visible');
+            });
+
+          });
+
+          // document.getElementById('card-1').addEventListener('click', event => {
+          // });
+
+          document.getElementById('rates-download-link').addEventListener('click', event => {
+            event.preventDefault();
+            event.stopPropagation();
+            window.Telegram.WebApp.openLink(document.getElementById('rates-download-link').getAttribute('href'), {try_instant_view: true});
+
+          })
+
+          // update_translation_type();
+          // display_rates();
         }
       });
     }
