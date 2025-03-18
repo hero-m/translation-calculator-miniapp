@@ -171,12 +171,22 @@ body {
     overflow: hidden;
 }
 
+.select-items.open {
+    position: static;
+}
+
 .select-items.open .select-item-list {
     display: block;
+    position: absolute;
+    right: 0;
 }
 
 .select-item:nth-child(odd) {
     background: #fff5f0; /* #eee */
+}
+
+.select-label:has(+ .select-items.open) {
+    border-radius: 0 20px 0 0;
 }
 
 .select-item,
