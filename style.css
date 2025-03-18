@@ -154,6 +154,7 @@ body {
     border: 3px solid #d97645;
     border-radius: 20px 0 0 20px;
     background-color: white;
+    text-align: right;
 }
 
 .select-items.open .selected-item {
@@ -181,7 +182,7 @@ body {
     right: 0;
 }
 
-.select-item:nth-child(odd) {
+.select-item-list .select-item:nth-child(odd) {
     background: #fff5f0; /* #eee */
 }
 
@@ -215,7 +216,7 @@ body {
 
 /***********************/
 
-.lang-pairs .select-item {
+.lang-select .select-item {
     display: flex;
     align-items: center;
 }
@@ -235,6 +236,10 @@ body {
 
 .target-lang {
     padding-right: 10px;
+}
+
+.lang-select .pair-arrow {
+    font-family: "Droid Sans";
 }
 
 /**************************/

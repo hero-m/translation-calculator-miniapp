@@ -37,27 +37,24 @@ var calculator_definitions = {
 }
 
 var calcData = {
-  stepnum: 1,
-  stepname: "intro"
+  stepnum: 1
 };
 
 function rtc_initialize() {
   fetch_translation_rates(0).then(function (result) {
     if (result != null) {
       calculator_definitions.translation_rates = result;
-      // _rtctext('form-title', result['last-update']);
-      // document.getElementById('rtc-translation-type').addEventListener('change', update_translation_type);
-      // document.getElementById('rtc-text-translation-type').addEventListener('change', update_text_translation_type);
       document.getElementById('rtc-rate-calculate-form').querySelectorAll('select, input').forEach(element => {
         element.addEventListener('change', display_rates);
         element.addEventListener('input', display_rates);
+        
       });
 
       document.querySelectorAll('.actions-intro .action-btn').forEach(element => {
-        element.addEventListener('click', event => {
+        element.addEventListener('click', function (event) {
           calcData.stepnum = 2;
-          calcData.stepname = element.getAttribute('item-value');
-          document.getElementById('card-' + calcData.stepname).classList.add('card-visible');
+          calcData.translation_type = this.dataset.value;
+          document.getElementById('card-' + calcData.translation_type).classList.add('card-visible');
           document.getElementById('card-intro').classList.remove('card-visible');
         });
 
@@ -65,13 +62,6 @@ function rtc_initialize() {
 
       document.querySelectorAll('.select-group').forEach(element => {
         element.addEventListener('click', function (event) {
-          // var group = element.closest('.select-group');
-          // if (group.classList.contains('open')) {
-          //   group.classList.remove('open');
-          //   document.getElementById('overlay').hide
-          // } else {
-
-          // }
           this.querySelector('.select-items').classList.toggle('open');
           document.getElementById('overlay').classList.toggle('hidden');
         });
@@ -80,6 +70,19 @@ function rtc_initialize() {
       document.getElementById('overlay').addEventListener('click', element => {
         document.querySelector('.select-items.open').classList.remove('open');
         document.getElementById('overlay').classList.add('hidden');
+      });
+
+      document.querySelectorAll('.select-item').forEach(element => {
+        element.addEventListener('click', function (event) {
+          var data_value = this.dataset.value;
+          var data_id = this.closest('.select-items').dataset.id;
+          calcData.wf = this;
+          
+
+          console.log(data_id);
+          console.log(this.innerHTML);
+          this.closest('.select-group').querySelector('.selected-item').innerHTML = this.innerHTML;
+        });
       });
 
       // document.getElementById('card-1').addEventListener('click', event => {
