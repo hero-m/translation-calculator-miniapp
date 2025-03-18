@@ -221,12 +221,9 @@ body {
     align-items: center;
 }
 
-.source-lang, .target-lang {
+.select-item-list .source-lang,
+.select-item-list .target-lang {
     flex: 1 1 0;
-}
-
-.pair-arrow {
-    color: #c84200;
 }
 
 .source-lang {
@@ -234,12 +231,18 @@ body {
     text-align: left;
 }
 
+.selected-item .source-lang {
+    text-align: right;
+}
+
 .target-lang {
     padding-right: 10px;
 }
 
 .lang-select .pair-arrow {
-    font-family: "Droid Sans";
+    color: transparent;
+    background-image: url('assets/left-arrow.png');
+    width: 14px;
 }
 
 /**************************/

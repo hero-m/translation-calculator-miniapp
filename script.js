@@ -81,7 +81,9 @@ function rtc_initialize() {
 
           console.log(data_id);
           console.log(this.innerHTML);
-          this.closest('.select-group').querySelector('.selected-item').innerHTML = this.innerHTML;
+          var selected_item = this.closest('.select-group').querySelector('.selected-item');
+          selected_item.innerHTML = this.innerHTML;
+          selected_item.classList.remove('item-none');
         });
       });
 
