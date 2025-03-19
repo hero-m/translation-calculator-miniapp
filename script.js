@@ -1,6 +1,6 @@
 // window.Telegram.WebApp
 
-var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/xrates-1403h2-v1.json';
+var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
 
 var CURRENCY = 'تومان';
 
@@ -13,6 +13,7 @@ var calcData = {
 function initialize() {
   fetch_translation_rates().then(function (result) {
     if (result == null) {
+      // TODO: افزودن دکمه‌های تلاش مجدد و خروج
       simplePopup('خطا', 'خطا در بارگزاری جدول نرخ‌نامه.', 'close', function (buttonId) { Telegram.WebApp.close();});
     } else {
       window.Telegram.WebApp.ready();
