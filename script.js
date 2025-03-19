@@ -1,6 +1,6 @@
 // window.Telegram.WebApp
 
-var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
+var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/xrates-1403h2-v1.json';
 
 var CURRENCY = 'تومان';
 
@@ -12,9 +12,28 @@ var calcData = {
 
 function initialize() {
   fetch_translation_rates().then(function (result) {
-    if (result != null) {
+    if (result == null) {
+      simplePopup('خطا', 'خطا در بارگزاری جدول نرخ‌نامه.', 'close', function (buttonId) { Telegram.WebApp.close();});
+    } else {
       window.Telegram.WebApp.ready();
     }
+  });
+}
+
+function simplePopup(title, message, type, callback) { // type: 'ok', 'close', 'cancel', 'destructive', 'default', ...
+  
+  Telegram.WebApp.showPopup({
+      title  : title,
+      message: message,
+      buttons: [
+          {id: 'ok', type: type},
+      ]
+  }, function (buttonId) {
+      // if (buttonId === 'delete') {
+      //     DemoApp.showAlert("'Delete all' selected");
+      // } else if (buttonId === 'faq') {
+      //     Telegram.WebApp.openLink('https://telegram.org/faq');
+      // }
   });
 }
 
