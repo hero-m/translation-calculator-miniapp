@@ -1,10 +1,28 @@
+// window.Telegram.WebApp
 
-var TRANSLATION_RATES_URLS = [
-  'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json',
-  'https://motarjemshodan.ir/translation-rates.json'
-];
-var PREFIX = 'rtc-';
+var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
+
 var CURRENCY = 'تومان';
+
+var EMPTY_CHOICE = 'گزینه‌ای را انتخاب کنید';
+
+var calcData = {
+  stepnum: 1
+};
+
+function initialize() {
+  fetch_translation_rates().then(function (result) {
+    if (result != null) {
+      window.Telegram.WebApp.ready();
+    }
+  });
+}
+
+initialize();
+
+
+
+//////////////////////////////////////////////////////////////////////////////////
 
 var calculator_definitions = {
   work_units: {
@@ -36,9 +54,6 @@ var calculator_definitions = {
   multipliers: null
 }
 
-var calcData = {
-  stepnum: 1
-};
 
 function rtc_initialize() {
   fetch_translation_rates(0).then(function (result) {
@@ -60,7 +75,7 @@ function rtc_initialize() {
 
       });
 
-      document.querySelectorAll('.select-group').forEach(element => {
+      document.querySelectorAll('.field-group:has(.select-items)').forEach(element => {
         element.addEventListener('click', function (event) {
           this.querySelector('.select-items').classList.toggle('open');
           document.getElementById('overlay').classList.toggle('hidden');
@@ -81,7 +96,7 @@ function rtc_initialize() {
 
           console.log(data_id);
           console.log(this.innerHTML);
-          var selected_item = this.closest('.select-group').querySelector('.selected-item');
+          var selected_item = this.closest('.field-group').querySelector('.selected-item');
           selected_item.innerHTML = this.innerHTML;
           selected_item.classList.remove('item-none');
         });
@@ -244,9 +259,9 @@ function get_work_unit_per_item() {
   }
 }
 
-async function fetch_translation_rates(url_index) {
+async function fetch_translation_rates() {
   try {
-    const response = await fetch(TRANSLATION_RATES_URLS[url_index]);
+    const response = await fetch(TRANSLATION_RATES_URL);
     if (!response.ok) {
       throw new Error("Bad network response (status: " + response.status + ")");
     }
@@ -255,12 +270,7 @@ async function fetch_translation_rates(url_index) {
     localStorage.setItem("translation-rates", JSON.stringify(data));
     return data;
   } catch (error) {
-    console.error("Error fetching translation rates from '" + TRANSLATION_RATES_URLS[url_index] + "':", error);
-    if (url_index < TRANSLATION_RATES_URLS.length - 1) {
-      return fetch_translation_rates(url_index + 1);
-    } else {
-      return JSON.parse(localStorage.getItem("translation-rates"));
-    }
+    console.error("Error fetching translation rates.");
   }
 }
 
@@ -276,4 +286,4 @@ function _rtctext(element_id, value) {
   document.getElementById(PREFIX + element_id).textContent = value;
 }
 
-rtc_initialize();
+// rtc_initialize();

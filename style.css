@@ -75,8 +75,6 @@ body {
 }
 
 .action-btn {
-    -webkit-clip-path: url(#action-button-clip-path);
-    clip-path: url(#action-button-clip-path);
     width: 100%;
     max-width: 225px;
     margin: 10px auto;
@@ -84,6 +82,14 @@ body {
     color: white;
     line-height: 2.4em;
     cursor: pointer;
+    border-radius: 5px;
+    background-color: #d97645;
+}
+
+#card-intro .action-btn {
+    -webkit-clip-path: url(#action-button-clip-path);
+    clip-path: url(#action-button-clip-path);
+    border-radius: 0;
 }
 
 .action-btn.choice-text {
@@ -102,22 +108,34 @@ body {
     background: #34a853;
 }
 
+#card-text .action-box {
+    margin-top: 30px;
+}
+
+#card-text .action-btn {
+    margin-top: 20px;
+}
+
+.action-btn.choice-cancel {
+    background: gray;
+}
+
 /* //////////////////// */
 
-.select-group {
+.field-group {
     display: flex;    
     margin: 10px 5px;
     cursor: pointer;
     border-radius: 20px;
 }
 
-.select-group:has(.select-items.open) {
+.field-group:has(.select-items.open) {
     position: relative;
     z-index: 3;
 }
 
-.select-label {
-    padding: 5px 10px;
+.field-label {
+    padding: 6px 10px;
     border-radius: 0 20px 20px 0;
     background-color: #d97645;
     color: white;
@@ -127,6 +145,13 @@ body {
     flex: 1 1 auto;
     position: relative;
     border-radius: 20px 0 0 20px;
+}
+
+.field-suffix {
+    padding: 9px 10px 3px 15px;
+    border-radius: 20px 0 0 20px;
+    background-color: #d97645;
+    color: white;
 }
 
 .select-items.open {
@@ -148,6 +173,15 @@ body {
 
 .select-items.open::after {
     border-radius: 20px 0 0 0;
+}
+
+.field-group input {
+    flex: 1 1 auto;
+    position: relative;
+    border: 3px solid #d97645;
+    background-color: white;
+    padding: 5px 10px;
+    outline: none;
 }
 
 .selected-item {
@@ -186,7 +220,7 @@ body {
     background: #fff5f0; /* #eee */
 }
 
-.select-label:has(+ .select-items.open) {
+.field-label:has(+ .select-items.open) {
     border-radius: 0 20px 0 0;
 }
 
@@ -250,3 +284,4 @@ body {
 .card-footer a {
     text-decoration: none;
 }
+
