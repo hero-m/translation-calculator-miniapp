@@ -21,20 +21,13 @@ function initialize() {
 }
 
 function simplePopup(title, message, type, callback) { // type: 'ok', 'close', 'cancel', 'destructive', 'default', ...
-  
   Telegram.WebApp.showPopup({
       title  : title,
       message: message,
       buttons: [
           {id: 'ok', type: type},
       ]
-  }, function (buttonId) {
-      // if (buttonId === 'delete') {
-      //     DemoApp.showAlert("'Delete all' selected");
-      // } else if (buttonId === 'faq') {
-      //     Telegram.WebApp.openLink('https://telegram.org/faq');
-      // }
-  });
+  }, callback);
 }
 
 initialize();
