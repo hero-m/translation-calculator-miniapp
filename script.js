@@ -63,10 +63,10 @@ var calculator_definitions = {
 
   parameter_groups: {
     '': [],
-    'text': [PREFIX + 'text-parameters', PREFIX + 'work-parameter'],
-    'interpret': [PREFIX + 'interpret-parameters', PREFIX + 'common-parameters', PREFIX + 'common-language-parameter', PREFIX + 'work-parameter'],
-    'media': [PREFIX + 'media-parameters', PREFIX + 'common-parameters', PREFIX + 'common-language-parameter', PREFIX + 'work-parameter'],
-    'apps': [PREFIX + 'common-parameters', PREFIX + 'common-language-parameter', PREFIX + 'work-parameter']
+    'text': ['text-parameters', 'work-parameter'],
+    'interpret': ['interpret-parameters', 'common-parameters', 'common-language-parameter', 'work-parameter'],
+    'media': ['media-parameters', 'common-parameters', 'common-language-parameter', 'work-parameter'],
+    'apps': ['common-parameters', 'common-language-parameter', 'work-parameter']
   },
 
   translation_rates: null,
@@ -139,7 +139,7 @@ function rtc_initialize() {
 
 function update_translation_type() {
   var translation_type = _rtcval('translation-type');
-  document.querySelectorAll('.' + PREFIX + 'parameter-group').forEach(element => {
+  document.querySelectorAll('.' + 'parameter-group').forEach(element => {
     if (calculator_definitions.parameter_groups[translation_type].includes(element.id)) {
       element.style.display = '';
     } else {
@@ -151,7 +151,7 @@ function update_translation_type() {
     update_text_translation_type();
   }
 
-  document.getElementById(PREFIX + 'work-amount').value = '';
+  document.getElementById('work-amount').value = '';
   if (translation_type != '') {
     _rtctext('work-unit', get_work_unit());
   }
@@ -159,7 +159,7 @@ function update_translation_type() {
 
 function update_text_translation_type() {
   var hidettt = ['analysis', 'edit-human', 'edit-machine'].includes(_rtcval('text-translation-type'));
-  document.getElementById(PREFIX + 'text-translation-skill-parameter').style.display = hidettt ? 'none' : '';
+  document.getElementById('text-translation-skill-parameter').style.display = hidettt ? 'none' : '';
 }
 
 function display_rates() {
@@ -298,11 +298,11 @@ function _rtcformat(number, fraction) {
 }
 
 function _rtcval(element_id) {
-  return document.getElementById(PREFIX + element_id).value;
+  return document.getElementById(element_id).value;
 }
 
 function _rtctext(element_id, value) {
-  document.getElementById(PREFIX + element_id).textContent = value;
+  document.getElementById(element_id).textContent = value;
 }
 
 // rtc_initialize();
