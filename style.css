@@ -3,8 +3,15 @@
     --animation-time: 0.5s;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
     font-family: "Vazirmatn", sans-serif;
+    margin: 0;
 }
 
 ol {
@@ -22,11 +29,13 @@ ol {
     height: var(--tg-viewport-stable-height);
     overflow-y: auto;
     text-align: center;
+    padding: 5px;
 }
 
 .card-item {
     border: 5px solid var(--main-bg-color);
     /* #cab8b0 */
+    height: 100%;
     border-radius: 5px;
     display: none;
 }
