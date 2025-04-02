@@ -16,7 +16,7 @@
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <svg width="0" height="0">
+  <svg width="0" height="0" style="display: none;">
     <defs>
       <clipPath id="action-button-clip-path" clipPathUnits="objectBoundingBox">
         <path d="M0,0.5 0.04,0 0.08,0 0.04,0.5 0.08,1 0.1,1 0.06,0.5 0.1,0 0.14,0 0.1,0.5 0.14,1 0.16,1 0.12,0.5 0.16,0
@@ -61,7 +61,7 @@
         
         <div class="intro-box">
           <div class="intro-title">نرخ‌نامه‌ی ترجمه — نیمه‌ی دوم سال ۱۴۰۳</div>
-          <div class="intro-subtitle">حوزه‌ی ترجمه‌ی کتبی</div>
+          <div class="intro-subtitle">حوزه‌ی ترجمه‌ی کتبی <div class="help-icon">؟</div></div>
         </div>
 
         <div class="form-box">
@@ -110,7 +110,7 @@
 
           <div class="field-group translation-topic-select">
             <div class="field-label">موضوع ترجمه</div>
-            <div class="select-items">
+            <div class="select-items" data-id="translation_topic">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="general">عمومی</div>
@@ -128,7 +128,7 @@
 
           <div class="field-group translation-language-select lang-select">
             <div class="field-label">زبان ترجمه</div>
-            <div class="select-items">
+            <div class="select-items" data-id="translation_language">
               <div class="selected-item select-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="en-to-fa"><div class="source-lang">انگلیسی</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
@@ -143,7 +143,7 @@
 
           <div class="field-group work-amount">
             <div class="field-label">حجم کار</div>
-            <input name="work-amount" type="number" step="1" min="0">
+            <input name="work_amount" type="number" step="1" min="0">
             <div class="field-suffix">کلمه</div>
           </div>
 
@@ -152,6 +152,10 @@
             <div class="action-btn choice-cancel">برگشت</div>
           </div>
         </div>
+      </div>
+
+      <div id="card-print" class="card-item">
+        
       </div>
     </div>
     <div style="display: none;">
@@ -239,6 +243,33 @@
     </div>
     </div>
   </div>
+
+  <dialog id="text-help-dialog" class="help-dialog">
+    <form method="dialog">
+      <div class="dialog-header">
+        توضیحات محاسبه‌ی نرخ ترجمه‌ی کتبی
+        <span class="dialog-close">⨯</span>
+      </div>
+      <div class="help-content">
+        <ol>
+          <li>تازه‌کاربودن مترجم، سادگی متن، خواستهٔ کارفرما، نوع استفاده از ترجمه و هر دلیل دیگری در نهایت حداقل دستمزد و نرخ پایه می‌شود نه کمتر از آن.</li>
+          <li>سطح مهارت مترجمان متفاوت است. طبق جدول ضریب صفحهٔ بعد دستمزد پایه متناسب با رتبهٔ مترجم (در چهار سطح برای ترجمهٔ کتبی و دو سطح برای سایر حوزه‌ها) محاسبه می‌شود.</li>
+          <li>ارزیابی کیفیت ترجمه، اصلاح ترجمهٔ انسانی یا ماشینی از عهدهٔ مترجم سطح ۴ برمی‌آید و ضریب رتبهٔ مترجم ندارد. بخش پرسش‌های متداول در انتهای نرخ‌نامه را بخوانید.</li>
+          <li>میانگین سرعت ترجمهٔ کتبی ۴۰۰ کلمه در ساعت است.</li>
+          <li>میانگین میزان کار مترجم کتبی در حالت عادی ۲۵۰۰ کلمه در روز است.</li>
+          <li>پرداخت دستمزد ترجمهٔ انسانی کمتر از ۸۰ تومان به ازای هر کلمه (یا صفحه‌ای ۲۰ هزار تومان) کمتر از حداقل دستمزد تعیین‌شدهٔ شورای عالی کار (ساعتی ۳۲ هزار تومان) است!</li>
+          <li>طبق قانون کار می‌توان از اشخاص حقیقی و حقوقی (مراکز ارائه‌دهنده خدمات ترجمه، سازمان‌ها، کارفرمایان و...) شکایت کرد اگر کلمه‌ای کمتر از ۸۰ تومان برای ترجمهٔ انسانی به مترجم پرداخت می‌کنند.</li>
+          <li>درحال حاضر میانگین دستمزد ترجمه انگلیسی به فارسی در بازار بین‌المللی کلمه‌ای ۶ سنت است، که به‌نرخ روز دلار حدود کلمه‌ای ۴ هزار تومان می‌شود!</li>
+          <li>این نرخ‌نامه حداقل دستمزد مترجمان است. دریافتی مراکز خدمات ترجمه، حداقل ۳۰درصد بیشتر از این مبالغ می‌شود.</li>
+          <li>دستمزد ترجمهٔ رسمی را کانون مترجمان رسمی ایران تعیین می‌کند: iacti.ir/official-translation-price-list</li>
+          <li>دستمزد ویرایش از ترجمه جدا بوده و طبق <a href="https://anjomanvirastar.ir/nerkhname/">تعرفهٔ انجمن صنفی ویراستاران</a> محاسبه می‌شود.</li>
+        </ol>
+      </div>
+      <div class="dialog-footer">
+        <div class="action-btn dialog-close">بستن</div>
+      </div>
+    </form>
+  </dialog>
 
   <div id="overlay" class="hidden"></div>
 

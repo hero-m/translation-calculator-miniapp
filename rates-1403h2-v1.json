@@ -9,7 +9,6 @@
             "edit-machine": 150,
             "author": 200
         },
-        "news": 15000,
         "interpret": {
             "simultaneous": {
                 "en-to-fa": 500000,

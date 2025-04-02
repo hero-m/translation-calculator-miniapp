@@ -6,29 +6,121 @@ var CURRENCY = 'تومان';
 
 var EMPTY_CHOICE = 'گزینه‌ای را انتخاب کنید';
 
+var calcParams = {
+
+  workUnits: {
+    'text': 'کلمه',
+    'interpret': 'ساعت',
+    'media': {
+      'translate_subtitles': 'خط',
+      'other': 'دقیقه'
+    },
+    'apps': 'کلمه'
+  },
+};
+
 var calcData = {
   stepnum: 1
 };
 
 function initialize() {
+  
+  for (let element of document.getElementsByClassName('selected-item')) { element.innerHTML = EMPTY_CHOICE; }
+  for (let element of document.getElementsByTagName('input')) { element.value = ''; }
+
   fetch_translation_rates().then(function (result) {
     if (result == null) {
       // TODO: افزودن دکمه‌های تلاش مجدد و خروج
-      simplePopup('خطا', 'خطا در بارگزاری جدول نرخ‌نامه.', 'close', function (buttonId) { Telegram.WebApp.close();});
+      Telegram.WebApp.showPopup({
+        title: 'خطا',
+        message: 'خطا در بارگزاری جدول نرخ‌نامه.',
+        buttons: [
+          {id: 'close', type: 'close'} // type: 'ok', 'close', 'cancel', 'destructive', 'default', ...
+        ], function (buttonId) {
+          Telegram.WebApp.close();
+        }
+      });
     } else {
+      calcParams.translationRates = result;
+      
+      document.querySelectorAll('.actions-intro .action-btn').forEach(element => {
+        element.addEventListener('click', function (event) {
+          calcData.stepnum = 2;
+          calcData.translation_type = this.dataset.value;
+          document.getElementById('card-' + calcData.translation_type).classList.add('card-visible');
+          document.getElementById('card-intro').classList.remove('card-visible');
+        });
+      });
+
+      document.querySelectorAll('.action-btn.choice-cancel').forEach(element => {
+        element.addEventListener('click', function (event) {
+          if (calcData.stepnum == 2) {
+
+            var activeCard = document.getElementsByClassName('card-visible')[0];
+            document.getElementById('card-intro').classList.add('card-visible');
+            activeCard.classList.remove('card-visible');
+            for (let element of activeCard.getElementsByClassName('selected-item')) { element.innerHTML = EMPTY_CHOICE; element.classList.add('item-none'); }
+            activeCard.getElementsByTagName('input')[0].value = '';
+            calcData = {stepnum: 1};
+          }
+        })
+      })
+      
+      document.querySelectorAll('.field-group:has(.select-items)').forEach(element => {
+        element.addEventListener('click', function (event) {
+          this.querySelector('.select-items').classList.toggle('open');
+          document.getElementById('overlay').classList.toggle('hidden');
+        });
+      });
+
+      document.getElementById('overlay').addEventListener('click', element => {
+        document.querySelector('.select-items.open').classList.remove('open');
+        document.getElementById('overlay').classList.add('hidden');
+      });
+
+      document.querySelectorAll('.select-item').forEach(element => {
+        element.addEventListener('click', function (event) {
+          var dataValue = this.dataset.value;
+          var dataId = this.closest('.select-items').dataset.id;
+          calcData[dataId] = dataValue;
+          var selectedItem = this.closest('.field-group').querySelector('.selected-item');
+          selectedItem.innerHTML = this.innerHTML;
+          selectedItem.classList.remove('item-none');
+
+          if (dataId == 'text_service' && ['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
+            
+          }
+        });
+      });
+
+      document.querySelector('#card-text .help-icon').addEventListener('click', function (event) {
+        document.getElementById('text-help-dialog').showModal();
+      });
+
+      document.querySelectorAll('.dialog-close').forEach(element => {
+        element.addEventListener('click', function(event) {
+          this.closest('dialog').close();
+        })
+      });
+
+      document.querySelectorAll('.help-dialog').forEach(element => {
+        element.addEventListener('click', function (event) {
+          var rect = this.getBoundingClientRect();
+          var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
+            rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
+          if (!isInDialog) {
+            this.close();
+          }
+        });
+      });
+
+      document.querySelector('#card-text .choice-submit').addEventListener('click', function (event) {
+        window.print();
+      });
+
       window.Telegram.WebApp.ready();
     }
   });
-}
-
-function simplePopup(title, message, type, callback) { // type: 'ok', 'close', 'cancel', 'destructive', 'default', ...
-  Telegram.WebApp.showPopup({
-      title  : title,
-      message: message,
-      buttons: [
-          {id: 'ok', type: type},
-      ]
-  }, callback);
 }
 
 initialize();
@@ -71,58 +163,11 @@ var calculator_definitions = {
 function rtc_initialize() {
   fetch_translation_rates(0).then(function (result) {
     if (result != null) {
-      calculator_definitions.translation_rates = result;
-      document.getElementById('rtc-rate-calculate-form').querySelectorAll('select, input').forEach(element => {
-        element.addEventListener('change', display_rates);
-        element.addEventListener('input', display_rates);
-        
-      });
 
-      document.querySelectorAll('.actions-intro .action-btn').forEach(element => {
-        element.addEventListener('click', function (event) {
-          calcData.stepnum = 2;
-          calcData.translation_type = this.dataset.value;
-          document.getElementById('card-' + calcData.translation_type).classList.add('card-visible');
-          document.getElementById('card-intro').classList.remove('card-visible');
-        });
-
-      });
-
-      document.querySelectorAll('.field-group:has(.select-items)').forEach(element => {
-        element.addEventListener('click', function (event) {
-          this.querySelector('.select-items').classList.toggle('open');
-          document.getElementById('overlay').classList.toggle('hidden');
-        });
-      });
-
-      document.getElementById('overlay').addEventListener('click', element => {
-        document.querySelector('.select-items.open').classList.remove('open');
-        document.getElementById('overlay').classList.add('hidden');
-      });
-
-      document.querySelectorAll('.select-item').forEach(element => {
-        element.addEventListener('click', function (event) {
-          var data_value = this.dataset.value;
-          var data_id = this.closest('.select-items').dataset.id;
-          calcData.wf = this;
-          
-
-          console.log(data_id);
-          console.log(this.innerHTML);
-          var selected_item = this.closest('.field-group').querySelector('.selected-item');
-          selected_item.innerHTML = this.innerHTML;
-          selected_item.classList.remove('item-none');
-        });
-      });
-
-      // document.getElementById('card-1').addEventListener('click', event => {
-      // });
-
-      document.getElementById('rates-download-link').addEventListener('click', event => {
+      document.getElementById('rates-download-link').addEventListener('click', function (event) {
         event.preventDefault();
         event.stopPropagation();
-        window.Telegram.WebApp.openLink(document.getElementById('rates-download-link').getAttribute('href'), { try_instant_view: true });
-
+        window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true });
       })
 
       // update_translation_type();

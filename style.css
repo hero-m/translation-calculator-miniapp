@@ -1,5 +1,14 @@
+:root {
+    --main-bg-color: #d97645;
+    --animation-time: 0.5s;
+}
+
 body {
     font-family: "Vazirmatn", sans-serif;
+}
+
+ol {
+    list-style-type: persian;
 }
 
 .divider {
@@ -10,12 +19,14 @@ body {
 }
 
 .card-box {
-    min-height: var(--tg-viewport-stable-height);
+    height: var(--tg-viewport-stable-height);
+    overflow-y: auto;
     text-align: center;
 }
 
 .card-item {
-    border: 5px solid #d97645;
+    border: 5px solid var(--main-bg-color);
+    /* #cab8b0 */
     border-radius: 5px;
     display: none;
 }
@@ -24,14 +35,14 @@ body {
     display: block;
 }
 
-.card-item > div {
+.card-item>div {
     padding: 10px 5px;
 }
 
 .intro-subtitle {
     font-size: 1.2em;
     margin-top: -10px;
-    color: #d97645;
+    color: var(--main-bg-color);
 }
 
 .card-footer div {
@@ -51,13 +62,48 @@ body {
 }
 
 .intro-title {
-    color: #d97645;
+    color: var(--main-bg-color);
     font-weight: bold;
-    border-bottom: 2px solid #d97645;
+    border-bottom: 2px solid var(--main-bg-color);
     display: inline-block;
     padding: 0 10px;
     margin-bottom: 15px;
     font-size: 1.2em;
+}
+
+.help-icon {
+    font-size: 0.7em;
+    background: var(--main-bg-color);
+    color: white;
+    display: inline-block;
+    width: 19px;
+    font-weight: bold;
+    border-radius: 19px;
+    line-height: 17px;
+    padding-top: 1px;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+.help-box {
+    z-index: 3;
+    background: white;
+    border: 3px solid var(--main-bg-color);
+    padding: 0 !important;
+    position: absolute;
+    top: 50px;
+    left: 15px;
+    right: 15px;
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.help-content {
+    overflow-y: auto;
+    line-height: 1.8em;
+    padding: 20px;
+    text-align: right;
 }
 
 #rtc-rate-calculate-form {
@@ -83,7 +129,7 @@ body {
     line-height: 2.4em;
     cursor: pointer;
     border-radius: 5px;
-    background-color: #d97645;
+    background-color: var(--main-bg-color);
 }
 
 #card-intro .action-btn {
@@ -123,7 +169,7 @@ body {
 /* //////////////////// */
 
 .field-group {
-    display: flex;    
+    display: flex;
     margin: 10px 5px;
     cursor: pointer;
     border-radius: 20px;
@@ -137,7 +183,7 @@ body {
 .field-label {
     padding: 6px 10px;
     border-radius: 0 20px 20px 0;
-    background-color: #d97645;
+    background-color: var(--main-bg-color);
     color: white;
 }
 
@@ -150,7 +196,7 @@ body {
 .field-suffix {
     padding: 9px 10px 3px 15px;
     border-radius: 20px 0 0 20px;
-    background-color: #d97645;
+    background-color: var(--main-bg-color);
     color: white;
 }
 
@@ -164,7 +210,7 @@ body {
     float: left;
     padding: 10px 10px 0px;
     display: block;
-    color: #d97645;
+    color: var(--main-bg-color);
     position: absolute;
     left: 0;
     top: 0;
@@ -178,14 +224,14 @@ body {
 .field-group input {
     flex: 1 1 auto;
     position: relative;
-    border: 3px solid #d97645;
+    border: 3px solid var(--main-bg-color);
     background-color: white;
     padding: 5px 10px;
     outline: none;
 }
 
 .selected-item {
-    border: 3px solid #d97645;
+    border: 3px solid var(--main-bg-color);
     border-radius: 20px 0 0 20px;
     background-color: white;
     text-align: right;
@@ -198,7 +244,7 @@ body {
 .select-items .select-item-list {
     display: none;
     position: absolute;
-    border: 3px solid #d97645;
+    border: 3px solid var(--main-bg-color);
     border-top: none;
     width: 100%;
     border-radius: 0 0 20px 20px;
@@ -217,7 +263,8 @@ body {
 }
 
 .select-item-list .select-item:nth-child(odd) {
-    background: #fff5f0; /* #eee */
+    background: #fff5f0;
+    /* #eee */
 }
 
 .field-label:has(+ .select-items.open) {
@@ -285,3 +332,95 @@ body {
     text-decoration: none;
 }
 
+/*****************************/
+
+dialog:open {
+    opacity: 1;
+    transform: translate(0,0);
+}
+
+dialog {
+    opacity: 0;
+    transform: translate(0, -25%);
+    transition:
+        opacity var(--animation-time) ease-out,
+        transform var(--animation-time) ease-out,
+        overlay var(--animation-time) ease-out allow-discrete,
+        display var(--animation-time) ease-out allow-discrete;
+}
+
+/* Before open state  */
+/* Needs to be after the previous dialog:open rule to take effect,
+      as the specificity is the same */
+@starting-style {
+    dialog:open {
+        opacity: 0;
+        transform: translate(0, -25%);
+    }
+}
+
+/* Transition the :backdrop when the dialog modal is promoted to the top layer */
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+    transition:
+        display var(--animation-time) allow-discrete,
+        overlay var(--animation-time) allow-discrete,
+        background-color var(--animation-time);
+}
+
+dialog:open::backdrop {
+    background-color: rgba(0, 0, 0, 0.25);
+}
+
+/* This starting-style rule cannot be nested inside the above selector
+  because the nesting selector cannot represent pseudo-elements. */
+
+@starting-style {
+    dialog:open::backdrop {
+        background-color: rgba(0, 0, 0, 0);
+    }
+}
+
+.dialog-header {
+    background: var(--main-bg-color);
+    color: white;
+    position: sticky;
+    top: 0;
+    right: 0;
+    left: 0;
+    padding: 5px;
+    text-align: center;
+}
+
+.help-dialog {
+    padding: 0;
+    border-color: var(--main-bg-color);
+    border-radius: 10px;
+}
+
+.dialog-header .dialog-close {
+    float: left;
+    border: 1px solid white;
+    border-radius: 21px;
+    line-height: 17px;
+    width: 21px;
+    height: 21px;
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+.dialog-footer {
+    border-top: 1px solid #eee;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 1px;
+}
+  
+.dialog-footer .action-btn{
+    font-size: 0.85em;
+    margin: 8px auto;
+    line-height: 2.1em;
+    max-width: 180px;
+}
+  
