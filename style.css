@@ -3,20 +3,18 @@
     --animation-time: 0.5s;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
 body {
     font-family: "Vazirmatn", sans-serif;
-    margin: 0;
 }
 
 ol {
     list-style-type: persian;
     padding-right: 30px;
+}
+
+.modal-header .btn-close {
+    padding:calc(var(--bs-modal-header-padding-y) * .5) calc(var(--bs-modal-header-padding-x) * .5);
+    margin:calc(-.5 * var(--bs-modal-header-padding-y)) auto calc(-.5 * var(--bs-modal-header-padding-y)) calc(-.5 * var(--bs-modal-header-padding-x));
 }
 
 .divider {
@@ -42,36 +40,25 @@ ol {
 }
 
 .card-item.card-visible {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
-.card-item>div {
+.card-item > div {
     padding: 10px 5px;
 }
 
-.intro-subtitle {
+.header-subtitle {
     font-size: 1.2em;
     margin-top: -10px;
     color: var(--main-bg-color);
 }
 
-.card-footer div {
-    padding: 6px 0;
-    border-bottom: 2px solid #eee;
-    width: 280px;
-    max-width: 100%;
-    margin: 0 auto;
-}
-
-.card-footer div:last-child {
-    border-bottom: none;
-}
-
-.intro-box {
+.card-header {
     text-align: center;
 }
 
-.intro-title {
+.header-title {
     color: var(--main-bg-color);
     font-weight: bold;
     border-bottom: 2px solid var(--main-bg-color);
@@ -94,6 +81,22 @@ ol {
     vertical-align: middle;
     cursor: pointer;
     margin-right: 5px;
+}
+
+.card-content {
+    overflow-y: auto;
+}
+
+.card-footer div {
+    padding: 6px 0;
+    border-bottom: 2px solid #eee;
+    width: 280px;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.card-footer div:last-child {
+    border-bottom: none;
 }
 
 .help-box {
@@ -210,6 +213,10 @@ ol {
     color: white;
 }
 
+.field-label, .field-suffix {
+    white-space: nowrap;
+}
+
 .select-items.open {
     border-radius: 20px 0 0 0;
 }
@@ -233,6 +240,7 @@ ol {
 
 .field-group input {
     flex: 1 1 auto;
+    min-width: 100px;
     position: relative;
     border: 3px solid var(--main-bg-color);
     background-color: white;
@@ -394,25 +402,22 @@ dialog:open::backdrop {
 .dialog-header {
     background: var(--main-bg-color);
     color: white;
-    position: sticky;
-    top: 0;
-    right: 0;
-    left: 0;
     padding: 5px;
     text-align: center;
 }
 
 .help-dialog {
     padding: 0;
-    border-color: var(--main-bg-color);
     border-radius: 10px;
     height: var(--tg-viewport-stable-height);
+    border: none;
 }
 
 .help-dialog > form {
     display: flex;
     flex-direction: column;
     height: 100%;
+    border: 3px solid var(--main-bg-color);
 }
 
 .dialog-header .dialog-close {

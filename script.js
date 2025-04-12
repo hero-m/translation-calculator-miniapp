@@ -24,101 +24,74 @@ var calcData = {
 };
 
 function initialize() {
+
+  window.inMiniApp = typeof Telegram !== 'undefined';
   
-  for (let element of document.getElementsByClassName('selected-item')) { element.innerHTML = EMPTY_CHOICE; }
-  for (let element of document.getElementsByTagName('input')) { element.value = ''; }
+  $('.selected-item').innerHTML = EMPTY_CHOICE;
+  $('input').val('');
 
   fetch_translation_rates().then(function (result) {
     if (result == null) {
-      // TODO: افزودن دکمه‌های تلاش مجدد و خروج
-      Telegram.WebApp.showPopup({
-        title: 'خطا',
-        message: 'خطا در بارگزاری جدول نرخ‌نامه.',
-        buttons: [
-          {id: 'close', type: 'close'} // type: 'ok', 'close', 'cancel', 'destructive', 'default', ...
-        ], function (buttonId) {
-          Telegram.WebApp.close();
-        }
-      });
+      if (inMiniApp) { 
+        // TODO: افزودن دکمه‌های تلاش مجدد و خروج
+        Telegram.WebApp.showPopup({
+          title: 'خطا',
+          message: 'خطا در بارگزاری جدول نرخ‌نامه.',
+          buttons: [
+            {id: 'close', type: 'close'} // type: 'ok', 'close', 'cancel', 'destructive', 'default', ...
+          ], function (buttonId) {
+            Telegram.WebApp.close();
+          }
+        });
+      }
     } else {
       calcParams.translationRates = result;
       
-      document.querySelectorAll('.actions-intro .action-btn').forEach(element => {
-        element.addEventListener('click', function (event) {
-          calcData.stepnum = 2;
-          calcData.translation_type = this.dataset.value;
-          document.getElementById('card-' + calcData.translation_type).classList.add('card-visible');
-          document.getElementById('card-intro').classList.remove('card-visible');
-        });
+      $('.actions-intro .action-btn').on('click', function (event) {
+        calcData.stepnum = 2;
+        calcData.translation_type = this.dataset.value;
+        $('#card-' + calcData.translation_type).addClass('card-visible');
+        $('#card-intro').removeClass('card-visible');
       });
 
-      document.querySelectorAll('.action-btn.choice-cancel').forEach(element => {
-        element.addEventListener('click', function (event) {
-          if (calcData.stepnum == 2) {
-
-            var activeCard = document.getElementsByClassName('card-visible')[0];
-            document.getElementById('card-intro').classList.add('card-visible');
-            activeCard.classList.remove('card-visible');
-            for (let element of activeCard.getElementsByClassName('selected-item')) { element.innerHTML = EMPTY_CHOICE; element.classList.add('item-none'); }
-            activeCard.getElementsByTagName('input')[0].value = '';
-            calcData = {stepnum: 1};
-          }
-        })
+      $('.action-btn.choice-cancel').on('click', function (event) {
+        if (calcData.stepnum == 2) {
+          var activeCard = $('.card-visible')[0];
+          $('#card-intro').addClass('card-visible');
+          $(activeCard).removeClass('card-visible');
+          $('.selected-item').html(EMPTY_CHOICE).addClass('item-none');
+          $('input', activeCard).val('');
+          $('.card-content', activeCard).scrollTop();
+          calcData = {stepnum: 1};
+        }
       })
       
-      document.querySelectorAll('.field-group:has(.select-items)').forEach(element => {
-        element.addEventListener('click', function (event) {
-          this.querySelector('.select-items').classList.toggle('open');
-          document.getElementById('overlay').classList.toggle('hidden');
-        });
+      $('.field-group:has(.select-items)').on('click', function (event) {
+        $('.select-items', this).toggleClass('open');
+        $('#overlay').toggleClass('hidden');
       });
 
-      document.getElementById('overlay').addEventListener('click', element => {
-        document.querySelector('.select-items.open').classList.remove('open');
-        document.getElementById('overlay').classList.add('hidden');
+      $('#overlay').on('click', element => {
+        $('.select-items.open').removeClass('open');
+        $('#overlay').addClass('hidden');
       });
 
-      document.querySelectorAll('.select-item').forEach(element => {
-        element.addEventListener('click', function (event) {
-          var dataValue = this.dataset.value;
-          var dataId = this.closest('.select-items').dataset.id;
-          calcData[dataId] = dataValue;
-          var selectedItem = this.closest('.field-group').querySelector('.selected-item');
-          selectedItem.innerHTML = this.innerHTML;
-          selectedItem.classList.remove('item-none');
+      $('.select-item').on('click', function (event) {
+        var dataValue = this.dataset.value;
+        var dataId = this.closest('.select-items').dataset.id;
+        calcData[dataId] = dataValue;
+        var selectedItem = this.closest('.field-group').querySelector('.selected-item');
+        selectedItem.innerHTML = this.innerHTML;
+        selectedItem.classList.remove('item-none');
 
-          if (dataId == 'text_service' && ['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
-            
-          }
-        });
+        if (dataId == 'text_service' && ['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
+          
+        }
       });
 
-      document.querySelector('#card-text .help-icon').addEventListener('click', function (event) {
-        document.getElementById('text-help-dialog').showModal();
-      });
-
-      document.querySelectorAll('.dialog-close').forEach(element => {
-        element.addEventListener('click', function(event) {
-          this.closest('dialog').close();
-        })
-      });
-
-      document.querySelectorAll('.help-dialog').forEach(element => {
-        element.addEventListener('click', function (event) {
-          var rect = this.getBoundingClientRect();
-          var isInDialog = (rect.top <= event.clientY && event.clientY <= rect.top + rect.height &&
-            rect.left <= event.clientX && event.clientX <= rect.left + rect.width);
-          if (!isInDialog) {
-            this.close();
-          }
-        });
-      });
-
-      document.querySelector('#card-text .choice-submit').addEventListener('click', function (event) {
-        window.print();
-      });
-
-      window.Telegram.WebApp.ready();
+      if (inMiniApp) {
+        window.Telegram.WebApp.ready();
+      }
     }
   });
 }
