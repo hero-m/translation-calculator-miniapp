@@ -49,8 +49,16 @@ function initialize() {
       
       $('.actions-intro .action-btn').on('click', function (event) {
         calcData.stepnum = 2;
-        calcData.translation_type = this.dataset.value;
-        $('#card-' + calcData.translation_type).addClass('card-visible');
+        calcData.specialty = this.dataset.value;
+        $('.select-group').hide();
+        if (calcData.specialty == 'text') {
+          $('.select-group.text-field').show();
+        } else {
+          $('.select-group.' + calcData.specialty + "-field").show();
+          $('.select-group.shared-field').show();
+        }
+        $('.header-specialty').text($(this).text());
+        $('#card-input-form').addClass('card-visible');
         $('#card-intro').removeClass('card-visible');
       });
 
@@ -94,13 +102,13 @@ function initialize() {
           if (['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
             var level4 = $('#field-text-skill .skill-sp');
 
-            $('#field-text-skill .selected-item').html(level4.html()).removeClass('item-none');
+            $('#field-text-skill .selected-item').text(level4.text()).removeClass('item-none');
             calcData['text_skill'] = level4.data('value');
 
             $('#field-text-skill .skill-set1').hide();
             $('#field-text-skill .select-items').addClass('disabled');
           } else {
-            $('#field-text-skill .selected-item').html(EMPTY_CHOICE).addClass('item-none');
+            $('#field-text-skill .selected-item').text(EMPTY_CHOICE).addClass('item-none');
             delete calcData['text_skill'];
 
             $('#field-text-skill .skill-set1').show();

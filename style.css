@@ -3,6 +3,12 @@
     --animation-time: 0.5s;
 }
 
+svg {
+    height: 0;
+    position: absolute;
+    width: 0;
+}
+
 body {
     font-family: "Vazirmatn", sans-serif;
 }
@@ -310,7 +316,7 @@ ol {
     color: gray;
 }
 
-.select-item.error {
+.selected-item.error {
     border-color: red;
 }
 
@@ -330,7 +336,8 @@ ol {
 
 /***********************/
 
-.lang-select .select-item {
+.lang-select .select-item,
+.lang-select .selected-item {
     display: flex;
     align-items: center;
 }

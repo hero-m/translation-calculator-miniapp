@@ -17,7 +17,7 @@
   <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <svg width="0" height="0" style="display: none;">
+  <svg width="0" height="0">
     <defs>
       <clipPath id="action-button-clip-path" clipPathUnits="objectBoundingBox">
         <path d="M0,0.5 0.04,0 0.08,0 0.04,0.5 0.08,1 0.1,1 0.06,0.5 0.1,0 0.14,0 0.1,0.5 0.14,1 0.16,1 0.12,0.5 0.16,0
@@ -61,17 +61,18 @@
         </div>
       </div>
       
-      <div id="card-text" class="card-item">
+      <div id="card-input-form" class="card-item">
         <div class="card-header">
           <div class="header-title">نرخ‌نامهٔ ترجمه — نیمهٔ دوم سال ۱۴۰۳</div>
-          <div class="header-subtitle">حوزهٔ ترجمهٔ کتبی <div class="help-icon" data-bs-toggle="modal" data-bs-target="#help-modal">؟</div></div>
+          <div class="header-subtitle">حوزهٔ <span class="header-specialty"></span><div class="help-icon" data-bs-toggle="modal" data-bs-target="#help-modal">؟</div></div>
         </div>
 
         <div class="card-content form-box">
           <div>
             لطفاً فرم زیر را تکمیل کنید و دکمهٔ محاسبه را بزنید.
           </div>
-          <div class="field-group select-group" id="field-text-service" data-id="text_service">
+
+          <div class="field-group select-group text-field" id="field-text-service" data-id="text_service">
             <div class="field-label">نوع خدمات</div>
             <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
@@ -86,7 +87,7 @@
             </div>
           </div>
 
-          <div class="field-group select-group" id="field-text-skill" data-id="text_skill">
+          <div class="field-group select-group text-field" id="field-text-skill" data-id="text_skill">
             <div class="field-label">رتبهٔ مترجم</div>
             <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
@@ -99,7 +100,7 @@
             </div>
           </div>
 
-          <div class="field-group select-group" id="field-text-speed" data-id="text_speed">
+          <div class="field-group select-group text-field" id="field-text-speed" data-id="text_speed">
             <div class="field-label">زمان تحویل</div>
             <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
@@ -111,7 +112,7 @@
             </div>
           </div>
 
-          <div class="field-group select-group" id="field-text-topic" data-id="text_topic">
+          <div class="field-group select-group text-field" id="field-text-topic" data-id="text_topic">
             <div class="field-label">موضوع ترجمه</div>
             <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
@@ -129,10 +130,10 @@
             </div>
           </div>
 
-          <div class="field-group select-group lang-select" id="field-text-language" data-id="text_language">
+          <div class="field-group select-group text-field lang-select" id="field-text-language" data-id="text_language">
             <div class="field-label">زبان ترجمه</div>
             <div class="select-items">
-              <div class="selected-item select-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="en-to-fa"><div class="source-lang">انگلیسی</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
                 <div class="select-item" data-value="fa-to-en"><div class="source-lang">فارسی</div><div class="pair-arrow">به</div><div class="target-lang">انگلیسی</div></div>
@@ -140,6 +141,65 @@
                 <div class="select-item" data-value="fa-to-langs1"><div class="source-lang">فارسی</div><div class="pair-arrow">به</div><div class="target-lang">آلمانی، عربی، روسی، ترکی استانبولی، ترکی آذربایجانی، پرتغالی، ایتالیایی، فرانسوی، اسپانیایی، هلندی، تاجیک، سوئدی، کردی</div></div>
                 <div class="select-item" data-value="langs2-to-fa"><div class="source-lang">ژاپنی، چینی، اردو، ارمنی، پشتو، دری، تاجیک، رومانیایی، کره‌ای، گرجی، لهستانی، مجاری</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
                 <div class="select-item" data-value="fa-to-langs2"><div class="source-lang">فارسی</div><div class="pair-arrow">به</div><div class="target-lang">ژاپنی، چینی، اردو، ارمنی، پشتو، دری، تاجیک، رومانیایی، کره‌ای، گرجی، لهستانی، مجاری</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group select-group interpret-field" id="field-interpret-service" data-id="interpret_service">
+            <div class="field-label">نوع خدمات</div>
+            <div class="select-items">
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="select-item-list">
+                <div class="select-item" data-value="simultaneous">همزمان</div>
+                <div class="select-item" data-value="consecutive">پیاپی - همراه</div>
+                <div class="select-item" data-value="remote">تلفنی</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group select-group media-field" id="field-media-service" data-id="media_service">
+            <div class="field-label">نوع خدمات</div>
+            <div class="select-items">
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="select-item-list">
+                <div class="select-item" data-value="only-transcribe">پیاده‌سازی بدون ترجمه</div>
+                <div class="select-item" data-value="only-translate">ترجمه بدون پیاده‌سازی</div>
+                <div class="select-item" data-value="transcribe-translate">پیاده‌سازی و ترجمه</div>
+                <div class="select-item" data-value="translate-subtitles">ترجمهٔ زیرنویس</div>
+                <div class="select-item" data-value="translate-dubbed">ترجمهٔ دوبله</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field-group select-group shared-field lang-select" id="field-shared-language" data-id="shared_language">
+            <div class="field-label">زبان ترجمه</div>
+            <div class="select-items">
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="select-item-list">
+                <div class="select-item" data-value="en-to-fa"><div class="source-lang">انگلیسی</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
+                <div class="select-item" data-value="fa-to-en"><div class="source-lang">فارسی</div><div class="pair-arrow">به</div><div class="target-lang">انگلیسی</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group select-group shared-field" id="field-shared-skill" data-id="shared_skill">
+            <div class="field-label">رتبهٔ مترجم</div>
+            <div class="select-items">
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="select-item-list">
+                <div class="select-item" data-value="level-1-2">مترجم سطح ۱ و ۲</div>
+                <div class="select-item" data-value="level-3-4">مترجم سطح ۳ و ۴</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field-group select-group shared-field" id="field-common-skill" data-id="shared_skill">
+            <div class="field-label">موضوع ترجمه</div>
+            <div class="select-items">
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="select-item-list">
+                <div class="select-item" data-value="general">عمومی</div>
+                <div class="select-item" data-value="special">تخصصی</div>
               </div>
             </div>
           </div>
@@ -185,60 +245,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div style="display: none;">
-    <!-- translation-type -->
-    <form id="rtc-rate-calculate-form">
-      <div id="rtc-interpret-parameters" class="rtc-parameter-group" style="display: none">
-        <div>
-          <label for="rtc-interpret-type" class="form-label">نوع ترجمهٔ شفاهی</label>
-          <select id="rtc-interpret-type" class="form-control rtc-multiplier">
-            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-            <option value="simultaneous">همزمان</option>
-            <option value="consecutive">پیاپی - همراه</option>
-            <option value="remote">تلفنی</option>
-          </select>
-        </div>
-      </div>
-      <div id="rtc-media-parameters" class="rtc-parameter-group" style="display: none">
-        <div>
-          <label for="rtc-media-type" class="form-label">نوع ترجمهٔ رسانه</label>
-          <select id="rtc-media-type" class="form-control multiplier">
-            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-            <option value="only-transcribe">پیاده‌سازی بدون ترجمه</option>
-            <option value="only-translate">ترجمه بدون پیاده‌سازی</option>
-            <option value="transcribe-translate">پیاده‌سازی و ترجمه</option>
-            <option value="translate-subtitles">ترجمهٔ زیرنویس</option>
-          </select>
-        </div>
-      </div>
-      <div id="rtc-common-parameters" class="rtc-parameter-group" style="display: none">
-        <div id="rtc-common-language-parameter" class="rtc-parameter-group" style="display: none">
-          <label for="rtc-common-language" class="form-label">زبان ترجمه</label>
-          <select id="rtc-common-language" class="form-select">
-            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-            <option value="en-to-fa">انگلیسی به فارسی</option>
-            <option value="fa-to-en">فارسی به انگلیسی</option>
-          </select>
-        </div>
-        <div>
-          <label for="rtc-common-skill" class="form-label">رتبهٔ مترجم</label>
-          <select id="rtc-common-skill" class="form-control rtc-multiplier">
-            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-            <option value="level-1-2">مترجم سطح ۱ و ۲</option>
-            <option value="level-3-4">مترجم سطح ۳ و ۴</option>
-          </select>
-        </div>
-        <div>
-          <label for="rtc-common-topic" class="form-label">موضوع ترجمه</label>
-          <select id="rtc-common-topic" class="form-control rtc-multiplier">
-            <option value="" selected>گزینه‌ای را انتخاب کنید</option>
-            <option value="general">عمومی</option>
-            <option value="special">اختصاصی</option>
-          </select>
-        </div>
-      </div>
-    </form>
     </div>
   </div>
 
