@@ -62,7 +62,6 @@
       </div>
       
       <div id="card-text" class="card-item">
-        
         <div class="card-header">
           <div class="header-title">نرخ‌نامهٔ ترجمه — نیمهٔ دوم سال ۱۴۰۳</div>
           <div class="header-subtitle">حوزهٔ ترجمهٔ کتبی <div class="help-icon" data-bs-toggle="modal" data-bs-target="#help-modal">؟</div></div>
@@ -72,9 +71,9 @@
           <div>
             لطفاً فرم زیر را تکمیل کنید و دکمهٔ محاسبه را بزنید.
           </div>
-          <div class="field-group">
+          <div class="field-group select-group" id="field-text-service" data-id="text_service">
             <div class="field-label">نوع خدمات</div>
-            <div class="select-items" data-id="text_service">
+            <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="human">ترجمهٔ انسانی</div>
@@ -87,22 +86,22 @@
             </div>
           </div>
 
-          <div class="field-group">
+          <div class="field-group select-group" id="field-text-skill" data-id="text_skill">
             <div class="field-label">رتبهٔ مترجم</div>
-            <div class="select-items" data-id="translation_skill">
+            <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
-                <div class="select-item" data-value="level-1">مترجم سطح ۱</div>
-                <div class="select-item" data-value="level-2">مترجم سطح ۲</div>
-                <div class="select-item" data-value="level-3">مترجم سطح ۳</div>
-                <div class="select-item" data-value="level-4">مترجم سطح ۴</div>
+                <div class="select-item skill-set1" data-value="level-1">مترجم سطح ۱</div>
+                <div class="select-item skill-set1" data-value="level-2">مترجم سطح ۲</div>
+                <div class="select-item skill-set1" data-value="level-3">مترجم سطح ۳</div>
+                <div class="select-item skill-sp" data-value="level-4">مترجم سطح ۴</div>
               </div>
             </div>
           </div>
 
-          <div class="field-group translation-speed-select">
+          <div class="field-group select-group" id="field-text-speed" data-id="text_speed">
             <div class="field-label">زمان تحویل</div>
-            <div class="select-items" data-id="translation_speed">
+            <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="regular">عادی (روزانه ۲۵۰۰ کلمه)</div>
@@ -112,9 +111,9 @@
             </div>
           </div>
 
-          <div class="field-group translation-topic-select">
+          <div class="field-group select-group" id="field-text-topic" data-id="text_topic">
             <div class="field-label">موضوع ترجمه</div>
-            <div class="select-items" data-id="translation_topic">
+            <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="general">عمومی</div>
@@ -130,9 +129,9 @@
             </div>
           </div>
 
-          <div class="field-group translation-language-select lang-select">
+          <div class="field-group select-group lang-select" id="field-text-language" data-id="text_language">
             <div class="field-label">زبان ترجمه</div>
-            <div class="select-items" data-id="translation_language">
+            <div class="select-items">
               <div class="selected-item select-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="en-to-fa"><div class="source-lang">انگلیسی</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
@@ -145,11 +144,11 @@
             </div>
           </div>
 
-          <div class="field-group work-amount">
+          <div class="field-group" id="field-work-amount" data-id="work_amount">
             <div class="field-label">حجم کار</div>
             <input name="work_amount" type="number" step="1" min="0">
             <div class="field-suffix">کلمه</div>
-          </div>          
+          </div>
 
           <div class="action-box">
             <div class="action-btn choice-submit">محاسبه</div>
@@ -158,8 +157,33 @@
         </div>
       </div>
 
-      <div id="card-print" class="card-item">
+      <div id="card-result" class="card-item">
+        <div class="card-header">
+          <div class="header-title">نرخ‌نامهٔ ترجمه — نیمهٔ دوم سال ۱۴۰۳</div>
+        </div>
 
+        <div class="card-content">
+          <div class="line">تعرفهٔ ترجمهٔ شما براساس گزینه‌های زیر محاسبه شد:</div>
+          <div class="selections-box">
+            <div class="fields">
+              <div class="field">نوع خدمات: <span id="choice-service"></span></div>
+              <div class="field">رتبهٔ مترجم: <span id="choice-translation_skill"></span></div>
+              <div class="field">زمان تحویل: <span id="choice-translation_speed"></span></div>
+              <div class="field">موضوع ترجمه: <span id="choice-translation_topic"></span></div>
+              <div class="field">زبان ترجمه: <span id="choice-translation_language"></span></div>
+              <div class="field">حجم کار: <span id="choice-workـamount"></span></div>
+            </div>
+          </div>
+          <div class="results-box">
+            <div class="description">نرخ ترجمه</div>
+            <div class="fields">
+              <div class="field">نرخ پایه: <span id="base-rate"></span> تومان</div>
+              <div class="field">ضریب: x<span id="rate-multiplier"></span></div>
+              <div class="field">نرخ با ضریب: <span id="combined-rate"></span> تومان</div>
+              <div class="field">حداقل دستمزد: <span id="minimum-salary"></span> تومان</div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div style="display: none;">
@@ -214,37 +238,7 @@
           </select>
         </div>
       </div>
-      <div id="rtc-work-parameter" class="rtc-parameter-group" style="display: none">
-        <label for="rtc-work-amount" class="form-label">حجم کار</label>
-        <div class="input-group">
-          <input id="rtc-work-amount" class="form-control" type="number" step="1" min="0">
-          <div class="input-group-append">
-            <label id="rtc-work-unit" class="input-group-text" for="rtc-work-amount"> - </label>
-          </div>
-        </div>
-      </div>
     </form>
-    <div id="rtc-result" class="container">
-      <div class="row">
-        نرخ پایه:
-        <span id="rtc-result-base-rate"></span>
-
-      </div>
-      <div class="row">
-        ضریب:
-        <span id="rtc-result-multiplier"></span>
-
-      </div>
-      <div class="row">
-        نرخ با ضریب:
-        <span id="rtc-result-combined-rate"></span>
-      </div>
-
-      <div class="row">
-        حداقل دستمزد:
-        <span id="rtc-result-total-price"></span>
-      </div>
-    </div>
     </div>
   </div>
 

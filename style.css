@@ -25,7 +25,7 @@ ol {
 }
 
 .card-box {
-    height: var(--tg-viewport-stable-height);
+    min-height: var(--tg-viewport-stable-height);
     overflow-y: auto;
     text-align: center;
     padding: 5px;
@@ -194,7 +194,8 @@ ol {
 }
 
 .field-label {
-    padding: 6px 10px;
+    min-width: 110px;
+    padding: 8px 10px;
     border-radius: 0 20px 20px 0;
     background-color: var(--main-bg-color);
     color: white;
@@ -207,7 +208,7 @@ ol {
 }
 
 .field-suffix {
-    padding: 9px 10px 3px 15px;
+    padding: 8px 10px 8px 15px;
     border-radius: 20px 0 0 20px;
     background-color: var(--main-bg-color);
     color: white;
@@ -239,6 +240,14 @@ ol {
     content: "▲";
 }
 
+.select-items.disabled {
+    color: #525961;
+}
+
+.select-items.disabled::after {
+    display: none;
+}
+
 .field-group input {
     flex: 1 1 auto;
     min-width: 100px;
@@ -268,7 +277,8 @@ ol {
     width: 100%;
     border-radius: 0 0 20px 20px;
     background: white;
-    overflow: hidden;
+    max-height: 185px;
+    overflow-y: auto;
 }
 
 .select-items.open {
@@ -292,7 +302,7 @@ ol {
 
 .select-item,
 .selected-item {
-    padding: 5px 10px;
+    padding: 5px 10px 5px 25px;
     text-align: right;
 }
 
@@ -300,8 +310,12 @@ ol {
     color: gray;
 }
 
+.select-item.error {
+    border-color: red;
+}
+
 #overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;

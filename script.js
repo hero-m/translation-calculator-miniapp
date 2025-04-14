@@ -59,16 +59,21 @@ function initialize() {
           var activeCard = $('.card-visible')[0];
           $('#card-intro').addClass('card-visible');
           $(activeCard).removeClass('card-visible');
-          $('.selected-item').html(EMPTY_CHOICE).addClass('item-none');
+          $('.selected-item', activeCard).html(EMPTY_CHOICE).addClass('item-none');
           $('input', activeCard).val('');
           $('.card-content', activeCard).scrollTop();
           calcData = {stepnum: 1};
         }
-      })
+      });
       
-      $('.field-group:has(.select-items)').on('click', function (event) {
+      $('.select-group').on('click', function (event) {
         $('.select-items', this).toggleClass('open');
         $('#overlay').toggleClass('hidden');
+      });
+
+      $('.field-group input').on('change', function (event) {
+        var fieldId = this.closest('.field-group').dataset.id;
+        calcData[fieldId] = this.value;
       });
 
       $('#overlay').on('click', element => {
@@ -77,15 +82,30 @@ function initialize() {
       });
 
       $('.select-item').on('click', function (event) {
+        var fieldGroup = this.closest('.field-group');
         var dataValue = this.dataset.value;
-        var dataId = this.closest('.select-items').dataset.id;
+        var dataId = fieldGroup.dataset.id;
         calcData[dataId] = dataValue;
-        var selectedItem = this.closest('.field-group').querySelector('.selected-item');
+        var selectedItem = fieldGroup.querySelector('.selected-item');
         selectedItem.innerHTML = this.innerHTML;
         selectedItem.classList.remove('item-none');
 
-        if (dataId == 'text_service' && ['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
-          
+        if (dataId == 'text_service') {
+          if (['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
+            var level4 = $('#field-text-skill .skill-sp');
+
+            $('#field-text-skill .selected-item').html(level4.html()).removeClass('item-none');
+            calcData['text_skill'] = level4.data('value');
+
+            $('#field-text-skill .skill-set1').hide();
+            $('#field-text-skill .select-items').addClass('disabled');
+          } else {
+            $('#field-text-skill .selected-item').html(EMPTY_CHOICE).addClass('item-none');
+            delete calcData['text_skill'];
+
+            $('#field-text-skill .skill-set1').show();
+            $('#field-text-skill .select-items').removeClass('disabled');
+          }
         }
       });
 
@@ -97,7 +117,6 @@ function initialize() {
 }
 
 initialize();
-
 
 
 //////////////////////////////////////////////////////////////////////////////////
