@@ -1,6 +1,6 @@
 // window.Telegram.WebApp
 
-var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
+var TRANSLATION_RATES_URL = '/rates-1403h2-v1.json';// 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
 
 var CURRENCY = 'تومان';
 
@@ -11,17 +11,47 @@ var calcParams = {
   workUnits: {
     'text': 'کلمه',
     'interpret': 'ساعت',
-    'media': {
-      'translate_subtitles': 'خط',
-      'other': 'دقیقه'
-    },
+    'media': 'دقیقه',
+    'subtitles': 'خط',
     'apps': 'کلمه'
   },
+
+  specialtyLabels: {
+    'text': 'ترجمه کتبی',
+    'interpret': 'ترجمه شفاهی',
+    'media': 'ترجمه رسانه',
+    'apps': 'ترجمه نرم‌افزار'
+  }
 };
 
-var calcData = {
-  stepnum: 1
-};
+var calcData = {};
+
+var stepnum = 1;
+
+const errorModal = new bootstrap.Modal('#error-modal');
+
+async function fetch_translation_rates() {
+  var split = TRANSLATION_RATES_URL.split('/');
+  var ratesId = split[split.length - 1];
+  var cachedId = localStorage.getItem('cachedRatesId');
+  if (cachedId != null && cachedId == ratesId) {
+    return JSON.parse(localStorage.getItem('cachedRates'));
+  }
+
+  try {
+    const response = await fetch(TRANSLATION_RATES_URL);
+    if (!response.ok) {
+      throw new Error("Bad network response (status: " + response.status + ")");
+    }
+
+    const data = await response.json();
+    localStorage.setItem('cachedRates', JSON.stringify(data));
+    localStorage.setItem('cachedRatesId', ratesId);
+    return data;
+  } catch (error) {
+    console.error("Error fetching translation rates.");
+  }
+}
 
 function initialize() {
 
@@ -48,29 +78,42 @@ function initialize() {
       calcParams.translationRates = result;
       
       $('.actions-intro .action-btn').on('click', function (event) {
-        calcData.stepnum = 2;
+        stepnum = 2;
         calcData.specialty = this.dataset.value;
         $('.select-group').hide();
-        if (calcData.specialty == 'text') {
-          $('.select-group.text-field').show();
-        } else {
-          $('.select-group.' + calcData.specialty + "-field").show();
-          $('.select-group.shared-field').show();
-        }
+        $('.select-group.' + calcData.specialty + "-field").show();
+        $("#field-work-amount .field-suffix").text(get_work_unit());
         $('.header-specialty').text($(this).text());
         $('#card-input-form').addClass('card-visible');
         $('#card-intro').removeClass('card-visible');
       });
 
       $('.action-btn.choice-cancel').on('click', function (event) {
-        if (calcData.stepnum == 2) {
-          var activeCard = $('.card-visible')[0];
+        if (stepnum == 2) {
           $('#card-intro').addClass('card-visible');
-          $(activeCard).removeClass('card-visible');
-          $('.selected-item', activeCard).html(EMPTY_CHOICE).addClass('item-none');
-          $('input', activeCard).val('');
-          $('.card-content', activeCard).scrollTop();
-          calcData = {stepnum: 1};
+          $('#card-input-form').removeClass('card-visible');
+          $('#card-input-form .selected-item').html(EMPTY_CHOICE).addClass('item-none');
+          $('#card-input-form input').val('');
+          $('#card-input-form .card-content').scrollTop();
+          calcData = {};
+          stepnum = 1;
+        } else if (stepnum == 3) {
+          stepnum = 2;
+          $('#card-input-form').addClass('card-visible');
+          $('#card-result').removeClass('card-visible');
+        }
+      });
+
+      $('.action-btn.choice-submit').on('click', function (event) {
+        if (stepnum == 2) {
+          if (validateFields()) {
+            computeRates();
+            $('#card-result').addClass('card-visible');
+            $('#card-input-form').removeClass('card-visible');
+            stepnum = 3;
+          } else {
+            errorModal.show();
+          }
         }
       });
       
@@ -114,8 +157,16 @@ function initialize() {
             $('#field-text-skill .skill-set1').show();
             $('#field-text-skill .select-items').removeClass('disabled');
           }
+        } else if (dataId == 'media_service') {
+          $("#field-work-amount .field-suffix").text(get_work_unit());
         }
       });
+
+      // document.getElementById('rates-download-link').addEventListener('click', function (event) {
+      //   event.preventDefault();
+      //   event.stopPropagation();
+      //   window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true });
+      // })
 
       if (inMiniApp) {
         window.Telegram.WebApp.ready();
@@ -124,187 +175,16 @@ function initialize() {
   });
 }
 
-initialize();
-
-
-//////////////////////////////////////////////////////////////////////////////////
-
-var calculator_definitions = {
-  work_units: {
-    'text': 'کلمه',
-    'interpret': 'ساعت',
-    'media': {
-      'translate_subtitles': 'خط',
-      'other': 'دقیقه'
-    },
-    'apps': 'کلمه'
-  },
-
-  baserate_parameters: {
-    'text': ['text-translation-type'],
-    'interpret': ['interpret-type', 'common-language'],
-    'media': ['media-type', 'common-language'],
-    'apps': ['common-language']
-  },
-
-  parameter_groups: {
-    '': [],
-    'text': ['text-parameters', 'work-parameter'],
-    'interpret': ['interpret-parameters', 'common-parameters', 'common-language-parameter', 'work-parameter'],
-    'media': ['media-parameters', 'common-parameters', 'common-language-parameter', 'work-parameter'],
-    'apps': ['common-parameters', 'common-language-parameter', 'work-parameter']
-  },
-
-  translation_rates: null,
-  multipliers: null
-}
-
-
-function rtc_initialize() {
-  fetch_translation_rates(0).then(function (result) {
-    if (result != null) {
-
-      document.getElementById('rates-download-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true });
-      })
-
-      // update_translation_type();
-      // display_rates();
-    }
-  });
-}
-
-function update_translation_type() {
-  var translation_type = _rtcval('translation-type');
-  document.querySelectorAll('.' + 'parameter-group').forEach(element => {
-    if (calculator_definitions.parameter_groups[translation_type].includes(element.id)) {
-      element.style.display = '';
-    } else {
-      element.style.display = 'none';
-    }
-  });
-
-  if (translation_type == 'text') {
-    update_text_translation_type();
-  }
-
-  document.getElementById('work-amount').value = '';
-  if (translation_type != '') {
-    _rtctext('work-unit', get_work_unit());
-  }
-}
-
-function update_text_translation_type() {
-  var hidettt = ['analysis', 'edit-human', 'edit-machine'].includes(_rtcval('text-translation-type'));
-  document.getElementById('text-translation-skill-parameter').style.display = hidettt ? 'none' : '';
-}
-
-function display_rates() {
-  var calculated_rates = calculate_rates();
-
-  for (const [key, value] of Object.entries(calculated_rates)) {
-    if (value == 0) {
-      _rtctext('result-' + key, 'فیلدهای بیشتری را مشخص کنید');
-    } else {
-      if (key == 'base-rate') {
-        _rtctext('result-base-rate', get_work_unit_per_item() + ' ' + _rtcformat(value, 0) + ' ' + CURRENCY);
-      } else if (key == 'multiplier') {
-        _rtctext('result-multiplier', '⨯ ' + _rtcformat(value, 2));
-      } else if (key == 'combined-rate') {
-        _rtctext('result-combined-rate', get_work_unit_per_item() + ' ' + _rtcformat(value, 0) + ' ' + CURRENCY);
-      } else if (key == 'total-price') {
-        _rtctext('result-total-price', _rtcformat(value, 0) + ' ' + CURRENCY);
-      }
-    }
-  }
-}
-
-function calculate_rates() {
-  var results = {
-    'base-rate': 0,
-    'multiplier': 0,
-    'combined-rate': 0,
-    'total-price': 0
-  };
-
-  var translation_type = _rtcval('translation-type');
-  if (translation_type != '') {
-    results['base-rate'] = calculate_base_rate(translation_type);
-
-    if (translation_type == 'text') {
-      var multipliers = { ...calculator_definitions.translation_rates['multipliers']['text'] };
-      var hidettt = ['analysis', 'edit-human', 'edit-machine'].includes(_rtcval('text-translation-type'));
-      if (hidettt) {
-        delete multipliers['text-translation-skill'];
-      }
-      results['multiplier'] = calculate_multipliers(multipliers);
-    } else {
-      var multipliers = calculator_definitions.translation_rates['multipliers']['common'];
-      results['multiplier'] = calculate_multipliers(multipliers);
-    }
-
-    results['combined-rate'] = results['base-rate'] * results['multiplier'];
-    results['total-price'] = results['combined-rate'] * _rtcval('work-amount');
-  }
-
-  return results;
-}
-
-function calculate_base_rate(translation_type) {
-  var parameters = calculator_definitions.baserate_parameters;
-  var base_values = calculator_definitions.translation_rates['base-values'];
-
-  var runner = base_values[translation_type];
-  for (let i = 0; i < parameters[translation_type].length; i++) {
-    var field = parameters[translation_type][i];
-    var value = _rtcval(field);
-    if (value == '') {
-      return 0;
-    }
-
-    runner = runner[value];
-  }
-
-  return runner;
-}
-
-function calculate_multipliers(parameters) {
-  var result = 1;
-
-  var keys = Object.keys(parameters);
-  for (var i = 0; i < keys.length; i++) {
-    var choice = _rtcval(keys[i]);
-    if (choice == '') {
-      return 0;
-    }
-
-    var value = parameters[keys[i]][choice];
-    if (choice == undefined) {
-      return 0;
-    }
-
-    result *= value;
-  }
-
-  return result;
-}
-
 function get_work_unit() {
-  var units = calculator_definitions.work_units;
+  var units = calcParams.workUnits;
 
-  var translation_type = _rtcval('translation-type');
-  if (translation_type == 'media') {
-    var media_type = _rtcval('media-type');
-    if (media_type == 'translate-subtitles') {
-      return units['media']['translate_subtitles'];
+  if (calcData.specialty == 'media') {
+    if (calcData.media_service == 'translate-subtitles') {
+      return units['subtitles'];
     }
-
-    return units['media']['other'];
   }
 
-  return units[translation_type];
+  return units[calcData.specialty];
 }
 
 function get_work_unit_per_item() {
@@ -317,31 +197,87 @@ function get_work_unit_per_item() {
   }
 }
 
-async function fetch_translation_rates() {
-  try {
-    const response = await fetch(TRANSLATION_RATES_URL);
-    if (!response.ok) {
-      throw new Error("Bad network response (status: " + response.status + ")");
-    }
-
-    const data = await response.json();
-    localStorage.setItem("translation-rates", JSON.stringify(data));
-    return data;
-  } catch (error) {
-    console.error("Error fetching translation rates.");
+function getBaseRate() {
+  var rates = calcParams.translationRates['base-values'][calcData.specialty];
+  if (calcData.specialty == 'text') {
+    return rates[calcData.text_service];
+  } else if (calcData.specialty == 'interpret') {
+    return rates[calcData.interpret_service][calcData.shared_language];
+  } else if (calcData.specialty == 'media') {
+    return rates[calcData.media_service][calcData.shared_language];
+  } else if (calcData.specialty == 'apps') {
+    return rates[calcData.shared_language];
   }
 }
 
-function _rtcformat(number, fraction) {
-  return new Intl.NumberFormat('en-US', { maximumFractionDigits: fraction }).format(number);
+function getMultiplier() {
+  var result = 1;
+  if (calcData.specialty == 'text') {
+    var multipliers = calcParams.translationRates['multipliers']['text'];
+    return multipliers['text_skill'][calcData.text_skill] * 
+           multipliers['text_speed'][calcData.text_speed] * 
+           multipliers['text_topic'][calcData.text_topic] * 
+           multipliers['text_language'][calcData.text_language];
+  } else {
+    var multipliers = calcParams.translationRates['multipliers']['shared'];
+    return multipliers['shared_skill'][calcData.shared_skill] * 
+           multipliers['shared_topic'][calcData.shared_topic];
+  }
 }
 
-function _rtcval(element_id) {
-  return document.getElementById(element_id).value;
+function computeRates() {
+  var baseRate = getBaseRate();
+  var multiplier = getMultiplier();
+  var combinedRate = Math.round(baseRate * multiplier);
+  $('#base-rate').text(get_work_unit_per_item() + ' ' + formatNumber(baseRate, 0));
+  $('#rate-multiplier').text(formatNumber(multiplier, 2));
+  $('#combined-rate').text(get_work_unit_per_item() + ' ' + formatNumber(combinedRate, 0));
+
+  if (calcData.work_amount != null && calcData.work_amount > 0) {
+    var minimumSalary = combinedRate * calcData.work_amount;
+    $('#minimum-salary').text(formatNumber(minimumSalary, 0)).closest('.field').show();
+  } else {
+    $('#minimum-salary').closest('.field').hide();
+  }
+
+  $('.selections-box .field').hide();
+  $('#choice-specialty').html(calcParams.specialtyLabels[calcData.specialty]).parent().show();
+  for (const field in calcData) {
+    if (field == 'work_amount') {
+      var label = $('#field-work-amount input').val() + ' ' + get_work_unit();
+      $('#choice-' + field).html(label);
+    } else {
+      var label = $('.field-group[data-id="' + field + '"] .selected-item').html();
+      $('#choice-' + field).html(label);
+    }
+    $('#choice-' + field).closest('.field').show();
+  }
 }
 
-function _rtctext(element_id, value) {
-  document.getElementById(element_id).textContent = value;
+function validateFields() {
+  var valid = true;
+  $('#general-errors').html('').hide();
+  $('#required-fields-label').hide();
+  $('#required-fields').html('').hide();
+  if (!['text', 'interpret', 'media', 'apps'].includes(calcData.specialty)) {
+    $('#general-errors').html('برخی از مقادیر انتخابی نامعتبر است.').show();
+    return false;
+  } else {
+    $('#card-input-form .select-group.' + calcData.specialty + "-field").each(function () {
+      var fieldId = this.dataset.id;
+      if (calcData[fieldId] == null || $('.selected-item', this).hasClass('item-none')) {
+        $('#required-fields-label').show();
+        $('#required-fields').append('<li>' + $('.field-label', this).text() + '</li>').show();
+        valid = false;
+      }
+    });
+  }
+
+  return valid;
 }
 
-// rtc_initialize();
+function formatNumber(number, fraction) {
+  return new Intl.NumberFormat('fa-IR', { maximumFractionDigits: fraction }).format(number);
+}
+
+initialize();

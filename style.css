@@ -199,7 +199,7 @@ ol {
     z-index: 3;
 }
 
-.field-label {
+.field-group .field-label {
     min-width: 110px;
     padding: 8px 10px;
     border-radius: 0 20px 20px 0;
@@ -302,7 +302,7 @@ ol {
     /* #eee */
 }
 
-.field-label:has(+ .select-items.open) {
+.field-group .field-label:has(+ .select-items.open) {
     border-radius: 0 20px 0 0;
 }
 
@@ -336,8 +336,7 @@ ol {
 
 /***********************/
 
-.lang-select .select-item,
-.lang-select .selected-item {
+.lang-pair {
     display: flex;
     align-items: center;
 }
@@ -348,77 +347,31 @@ ol {
 }
 
 .source-lang {
-    padding-left: 10px;
-    text-align: left;
+    text-align: right;
+    padding-left: 5px;
 }
 
-.selected-item .source-lang {
-    text-align: right;
+.select-item-list .source-lang {
+    padding-left: 10px;
+    text-align: left;
 }
 
 .target-lang {
     padding-right: 10px;
 }
 
-.lang-select .pair-arrow {
+.lang-pair .pair-arrow {
     color: transparent;
     background-image: url('assets/left-arrow.png');
     width: 14px;
 }
 
-/**************************/
+#card-result .lang-pair {
+    justify-content: center;
+}
 
 .card-footer a {
     text-decoration: none;
-}
-
-/*****************************/
-
-dialog:open {
-    opacity: 1;
-    transform: translate(0,0);
-}
-
-dialog {
-    opacity: 0;
-    transform: translate(0, -25%);
-    transition:
-        opacity var(--animation-time) ease-out,
-        transform var(--animation-time) ease-out,
-        overlay var(--animation-time) ease-out allow-discrete,
-        display var(--animation-time) ease-out allow-discrete;
-}
-
-/* Before open state  */
-/* Needs to be after the previous dialog:open rule to take effect,
-      as the specificity is the same */
-@starting-style {
-    dialog:open {
-        opacity: 0;
-        transform: translate(0, -25%);
-    }
-}
-
-/* Transition the :backdrop when the dialog modal is promoted to the top layer */
-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0);
-    transition:
-        display var(--animation-time) allow-discrete,
-        overlay var(--animation-time) allow-discrete,
-        background-color var(--animation-time);
-}
-
-dialog:open::backdrop {
-    background-color: rgba(0, 0, 0, 0.25);
-}
-
-/* This starting-style rule cannot be nested inside the above selector
-  because the nesting selector cannot represent pseudo-elements. */
-
-@starting-style {
-    dialog:open::backdrop {
-        background-color: rgba(0, 0, 0, 0);
-    }
 }
 
 .dialog-header {
@@ -467,4 +420,103 @@ dialog:open::backdrop {
     line-height: 2.1em;
     max-width: 180px;
 }
+
+/*////////////////// */
+
+#card-result .fields {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#card-result .field {
+    flex: 1 0 calc(50% - 8px);
+    margin: 8px 4px 4px;
+    border: 3px solid var(--main-bg-color);
+    border-radius: 10px;
+}
+
+#card-result .field-label {
+    font-size: 0.85em;
+    padding: 0 6px 3px;
+    background-color: var(--main-bg-color);
+    color: white;
+}
+
+#card-result .field > span {
+    padding: 5px;
+    float: right;
+    text-align: center;
+    width: 100%;
+}
+
+@media (min-width: 372px) and (max-width: 767px) {
+    #card-result .field:has(.lang-pair) {
+        flex: 1 0 300px;
+    }
+}
+
+@media (min-width: 992px) {
+    #card-result .field {
+        flex: 1 0 calc(33% - 12px);
+    }
+}
+
+
+#card-result .selections-box,
+#card-result .results-box {
+    border-top: 3px solid var(--main-bg-color);
+    border-radius: 10px;
+}
+
+
+#card-result .selections-box {
+    margin-top: 12px;
+}
+
+#card-result .results-box {
+    margin-top: 42px;
+}
+
+#card-result .description {
+    margin-top: -12px;
+    margin-bottom: 2px;
+}
+
+#card-result .description .inner {
+    background: var(--main-bg-color);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 24px;
+}
+
+  
+  /* Inline | http://localhost:8000/ 
+  
+  #card-result .description {
+    border: 1px solid var(--main-bg-color);
+    margin: 24px auto;
+  }
+  
+  #card-result .description .inner {
+    float: right;
+    margin-top: -12px;
+    width: 100%;
+  }
+
+/* ///////////////////
+
+.results-box .field, .selections-box .field {
+    border-style: outset;
+    border-color: #ffd0b9;
+    padding: 10px 5px;
+    background: #fff6f1;
+  }
+  
+  .results-box .field, .selections-box .field {
+    /* border-style: outset; */
+    /* border-color: #ffd0b9; */
+    /* padding: 10px 5px; */
+    /* background: #fff6f1; *//*
+    border: 3px solid var(--main-bg-color);
+  }
   

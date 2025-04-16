@@ -48,18 +48,18 @@
     },
     "multipliers": {
         "text": {
-            "text-translation-skill": {
+            "text_skill": {
                 "level-1": 1,
                 "level-2": 1.2,
                 "level-3": 1.4,
                 "level-4": 1.6
             },
-            "text-translation-speed": {
+            "text_speed": {
                 "regular": 1,
                 "fast": 1.4,
                 "urgent": 1.8
             },
-            "text-translation-topic": {
+            "text_topic": {
                 "general": 1,
                 "engineering": 1.2,
                 "executive": 1.2,
@@ -70,7 +70,7 @@
                 "literature": 1.6,
                 "other": 1.2
             },
-            "text-translation-language": {
+            "text_language": {
                 "en-to-fa": 1,
                 "fa-to-en": 2,
                 "langs1-to-fa": 1.6,
@@ -79,12 +79,12 @@
                 "fa-to-langs2": 4
             }
         },
-        "common": {
-            "common-skill": {
+        "shared": {
+            "shared_skill": {
                 "level-1-2": 1,
                 "level-3-4": 1.2
             },
-            "common-topic": {
+            "shared_topic": {
                 "general": 1,
                 "special": 1.2
             }
