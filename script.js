@@ -163,11 +163,11 @@ function initialize() {
         }
       });
 
-      // document.getElementById('rates-download-link').addEventListener('click', function (event) {
-      //   event.preventDefault();
-      //   event.stopPropagation();
-      //   window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true });
-      // })
+      document.getElementById('rates-download-link').addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        window.Telegram.WebApp.openLink(this.getAttribute('href')); //, { try_instant_view: true });
+      })
 
       if (inMiniApp) {
         window.Telegram.WebApp.ready();
