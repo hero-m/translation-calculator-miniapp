@@ -1,6 +1,7 @@
 // window.Telegram.WebApp
 
-var TRANSLATION_RATES_URL = '/rates-1403h2-v1.json';// 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
+// var TRANSLATION_RATES_URL = '/rates-1403h2-v1.json';
+var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
 
 var CURRENCY = 'تومان';
 
