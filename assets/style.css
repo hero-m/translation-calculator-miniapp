@@ -39,7 +39,7 @@ ol {
 
 .divider {
     height: 80px;
-    background-image: url("/translation-calculator-miniapp/assets/dots.png");
+    background-image: url("../images/dots.png");
     background-position: center;
     background-repeat: repeat-y;
 }
@@ -214,7 +214,7 @@ ol {
 }
 
 .field-group .field-label {
-    min-width: 102px;
+    min-width: 90px;
     padding: 8px 9px 8px 5px;
     border-radius: 0 20px 20px 0;
     background-color: var(--main-bg-color);
@@ -367,7 +367,7 @@ ol {
 
 .lang-pair .pair-arrow {
     color: transparent;
-    background-image: url('assets/left-arrow.png');
+    background-image: url('../images/left-arrow.png');
     width: 14px;
 }
 

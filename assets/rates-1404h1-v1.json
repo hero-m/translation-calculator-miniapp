@@ -1,0 +1,99 @@
+{
+    "version-title": "سال ۱۴۰۴ (نیم‌سال اول)",
+    "base-values": {
+        "text": {
+            "human": 300,
+            "machine": 85,
+            "analysis": 25,
+            "edit-human": 185,
+            "edit-machine": 200,
+            "author": 400
+        },
+        "interpret": {
+            "simultaneous": {
+                "en-to-fa": 2000000,
+                "others-to-fa": 2600000
+            },
+            "consecutive": {
+                "en-to-fa": 900000,
+                "others-to-fa": 1200000
+            },
+            "remote": {
+                "en-to-fa": 250000,
+                "others-to-fa": 320000
+            }
+        },
+        "media": {
+            "only-transcribe": {
+                "en-to-fa": 13000,
+                "others-to-fa": 26000
+            },
+            "only-translate": {
+                "en-to-fa": 33000,
+                "others-to-fa": 53000
+            },
+            "transcribe-translate": {
+                "en-to-fa": 53000,
+                "others-to-fa": 85000
+            },
+            "translate-subtitles": {
+                "en-to-fa": 1700,
+                "others-to-fa": 3000
+            },
+            "translate-dubbed": {
+                "en-to-fa": 2000,
+                "others-to-fa": 3300
+            }
+        },
+        "apps": {
+            "en-to-fa": 330,
+            "others-to-fa": 580
+        }
+    },
+    "multipliers": {
+        "text_skill": {
+            "level-1": 1,
+            "level-2": 1.2,
+            "level-3": 1.4,
+            "level-4": 1.6
+        },
+        "text_speed": {
+            "regular": 1,
+            "fast": 1.4,
+            "urgent": 1.8
+        },
+        "text_topic": {
+            "general": 1,
+            "engineering": 1.2,
+            "executive": 1.2,
+            "business": 1.2,
+            "medical": 1.4,
+            "legal": 1.4,
+            "abstract": 1.6,
+            "literature": 1.6,
+            "other": 1.2
+        },
+        "text_language": {
+            "en-to-fa": 1,
+            "fa-to-en": 2,
+            "langs1-to-fa": 1.6,
+            "fa-to-langs1": 3,
+            "langs2-to-fa": 2,
+            "fa-to-langs2": 4
+        },
+
+        "media_content": {
+            "entertainment": 1,
+            "educational": 1.2
+        },
+
+        "shared_skill": {
+            "level-1-2": 1,
+            "level-3-4": 1.2
+        },
+        "shared_topic": {
+            "general": 1,
+            "special": 1.2
+        }
+    }
+}

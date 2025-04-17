@@ -1,7 +1,5 @@
-// window.Telegram.WebApp
-
-// var TRANSLATION_RATES_URL = '/rates-1403h2-v1.json';
-var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/rates-1403h2-v1.json';
+var TRANSLATION_RATES_URL = 'assets/rates-1404h1-v1.json';
+// var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/assets/rates-1404h1-v1.json';
 
 var CURRENCY = 'تومان';
 
@@ -11,7 +9,8 @@ var calcParams = {
 
   workUnits: {
     'text': 'کلمه',
-    'interpret': 'ساعت',
+    'interpret': 'روز',
+    'interpret-remote': 'ساعت',
     'media': 'دقیقه',
     'media-subtitles': 'خط',
     'media-dub': 'خط',
@@ -37,7 +36,7 @@ async function fetch_translation_rates() {
   var ratesId = split[split.length - 1];
   var cachedId = localStorage.getItem('cachedRatesId');
   if (cachedId != null && cachedId == ratesId) {
-    return JSON.parse(localStorage.getItem('cachedRates'));
+    //return JSON.parse(localStorage.getItem('cachedRates'));
   }
 
   try {
@@ -78,6 +77,8 @@ function initialize() {
       }
     } else {
       calcParams.translationRates = result;
+
+      $('.rates-version').text(result['version-title']);
       
       $('.actions-intro .action-btn').on('click', function (event) {
         stepnum = 2;
@@ -189,7 +190,11 @@ function initialize() {
 function get_work_unit() {
   var units = calcParams.workUnits;
 
-  if (calcData.specialty == 'media') {
+  if (calcData.specialty == 'interpret') {
+    if (calcData.interpret_service == 'remote') {
+      return units['interpret-remote'];
+    }
+  } else if (calcData.specialty == 'media') {
     if (calcData.media_service == 'translate-subtitles') {
       return units['media-subtitles'];
     } else if (calcData.media_service == 'translate-dubbed') {
@@ -225,12 +230,25 @@ function getBaseRate() {
 
 function getMultiplier() {
   var result = 1;
+  var multipliers = calcParams.translationRates['multipliers'];
+  for (var field in multipliers) {
+    if (field in calcData) {
+      result *= multipliers[field][calcData[field]];
+    }
+  }
+
+  return result;
   if (calcData.specialty == 'text') {
     var multipliers = calcParams.translationRates['multipliers']['text'];
     return multipliers['text_skill'][calcData.text_skill] * 
            multipliers['text_speed'][calcData.text_speed] * 
            multipliers['text_topic'][calcData.text_topic] * 
            multipliers['text_language'][calcData.text_language];
+  } else if (calcData.specialty == 'interpret') {
+    var multipliers = calcParams.translationRates['multipliers']['shared'];
+    return multipliers['shared_skill'][calcData.shared_skill] * 
+           multipliers['shared_topic'][calcData.shared_topic];
+  } else if (calcData.specialty == 'media') {
   } else {
     var multipliers = calcParams.translationRates['multipliers']['shared'];
     return multipliers['shared_skill'][calcData.shared_skill] * 

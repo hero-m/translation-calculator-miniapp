@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+  <link href="assets/style.css" rel="stylesheet">
 </head>
 <body>
   <svg width="0" height="0">
@@ -31,7 +31,7 @@
     <div class="card-box">
       <div id="card-intro" class="card-item card-visible">
         <div class="card-header">
-          <div class="header-title">نرخ‌نامهٔ ترجمه — نیمهٔ دوم سال ۱۴۰۳</div>
+          <div class="header-title">نرخ‌نامهٔ ترجمه — <span class="rates-version"></span></div>
         </div>
 
         <div class="card-content">
@@ -52,7 +52,7 @@
           <div class="card-footer">
             <div>توضیح نرخ‌نامه</div>
   
-            <div><a id="rates-download-link" href="https://hero-m.github.io/translation-calculator-miniapp/assets/نرخ_نامه_ترجمه_نیم_سال_دوم_۱۴۰۳_مترجم_شدن.pdf">دانلود پی‌دی‌اف نرخ‌نامهٔ ترجمه</a></div>
+            <div><a id="rates-download-link" href="https://hero-m.github.io/translation-calculator-miniapp/docs/نرخ_نامه_ترجمه_نیم_سال_اول_۱۴۰۴_مترجم_شدن.pdf">دانلود پی‌دی‌اف نرخ‌نامهٔ ترجمه</a></div>
   
             <div>برای اثرگذاری بیشتر به اشتراک بگذارید. ❤️</div>
             
@@ -63,7 +63,7 @@
       
       <div id="card-input-form" class="card-item">
         <div class="card-header">
-          <div class="header-title">نرخ‌نامهٔ ترجمه — نیمهٔ دوم سال ۱۴۰۳</div>
+          <div class="header-title">نرخ‌نامهٔ ترجمه — <span class="rates-version"></span></div>
           <div class="header-subtitle">حوزهٔ <span class="header-specialty"></span><div class="help-icon" data-bs-toggle="modal" data-bs-target="#help-modal">؟</div></div>
         </div>
 
@@ -113,7 +113,7 @@
           </div>
 
           <div class="field-group select-group text-field" id="field-text-topic" data-id="text_topic">
-            <div class="field-label">موضوع ترجمه</div>
+            <div class="field-label">موضوع</div>
             <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
@@ -177,7 +177,7 @@
               <div class="selected-item item-none lang-pair">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item lang-pair" data-value="en-to-fa"><div class="source-lang">انگلیسی</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
-                <div class="select-item lang-pair" data-value="fa-to-en"><div class="source-lang">فارسی</div><div class="pair-arrow">به</div><div class="target-lang">انگلیسی</div></div>
+                <div class="select-item lang-pair" data-value="others-to-fa"><div class="source-lang">سایر زبان‌ها</div><div class="pair-arrow">به</div><div class="target-lang">فارسی</div></div>
               </div>
             </div>
           </div>
@@ -194,12 +194,23 @@
           </div>
           
           <div class="field-group select-group interpret-field media-field apps-field" id="field-shared-topic" data-id="shared_topic">
-            <div class="field-label">موضوع ترجمه</div>
+            <div class="field-label">موضوع</div>
             <div class="select-items">
               <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
               <div class="select-item-list">
                 <div class="select-item" data-value="general">عمومی</div>
                 <div class="select-item" data-value="special">تخصصی</div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="field-group select-group media-field" id="field-media-content" data-id="media_content">
+            <div class="field-label">محتوا</div>
+            <div class="select-items">
+              <div class="selected-item item-none">گزینه‌ای را انتخاب کنید</div>
+              <div class="select-item-list">
+                <div class="select-item" data-value="entertainment">فیلم سینمایی، سریال</div>
+                <div class="select-item" data-value="educational">سخنرانی، فیلم آموزشی</div>
               </div>
             </div>
           </div>
@@ -219,7 +230,7 @@
 
       <div id="card-result" class="card-item">
         <div class="card-header">
-          <div class="header-title">نرخ‌نامهٔ ترجمه — نیمهٔ دوم سال ۱۴۰۳</div>
+          <div class="header-title">نرخ‌نامهٔ ترجمه — <span class="rates-version"></span></div>
         </div>
 
         <div class="card-content">
@@ -311,9 +322,8 @@
     </div>
   </div>
 
-
   <div id="overlay" class="hidden"></div>
 
-  <script src="script.js"></script>
+  <script src="assets/script.js"></script>
 </body>
 </html>
