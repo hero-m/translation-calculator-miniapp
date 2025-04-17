@@ -160,9 +160,9 @@ function initialize() {
             $('#field-text-skill .skill-set1').show();
             $('#field-text-skill .select-items').removeClass('disabled');
           }
-        } else if (dataId == 'media_service') {
-          $("#field-work-amount .field-suffix").text(get_work_unit());
         }
+        
+        $("#field-work-amount .field-suffix").text(get_work_unit());
       });
 
       document.getElementById('rates-download-link').addEventListener('click', function (event) {
