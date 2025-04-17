@@ -324,12 +324,12 @@ ol {
     background-color: white;
     text-align: right;
     padding: 5px 6px 5px 24px;
-    text-wrap-mode: nowrap;
+    /*text-wrap-mode: nowrap;*/
 }
-
+/*
 .selected-item.lang-pair {
     text-wrap-mode: wrap;
-}
+}*/
 
 .selected-item.item-none {
     color: gray;
@@ -452,7 +452,7 @@ ol {
     float: right;
     text-align: center;
     width: 100%;
-    white-space: preserve-breaks nowrap;
+    /*white-space: preserve-breaks nowrap;*/
 }
 
 #card-result .field.lang-field > span {
@@ -498,6 +498,20 @@ ol {
     color: white;
     padding: 3px 10px;
     border-radius: 24px;
+}
+
+/******************************
+
+@media (max-width: 394px) {
+    .container {
+        padding-right: 4px;
+        padding-left: 4px;
+    }
+
+    #card-result .field {
+        flex: 1 1 calc(50% - 6px);
+        margin: 8px 2px 4px;
+    }
 }
 
 /*
