@@ -39,6 +39,10 @@
             "translate-subtitles": {
                 "en-to-fa": 1000,
                 "fa-to-en": 1500
+            },
+            "translate-dubbed": {
+                "en-to-fa": 1500,
+                "fa-to-en": 2500
             }
         },
         "apps": {

@@ -13,7 +13,8 @@ var calcParams = {
     'text': 'کلمه',
     'interpret': 'ساعت',
     'media': 'دقیقه',
-    'subtitles': 'خط',
+    'media-subtitles': 'خط',
+    'media-dub': 'خط',
     'apps': 'کلمه'
   },
 
@@ -167,7 +168,16 @@ function initialize() {
         event.preventDefault();
         event.stopPropagation();
         window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true });
-      })
+      });
+      
+      $('input[type="number"]').on('keypress', function (event) {
+        var code = event.keyCode;
+        var zeroFa = '۰'.charCodeAt(0);
+        var diff = code - zeroFa;
+        if (0 <= diff && diff < 10) {
+          event.keyCode = '0'.charCodeAt(0) + diff;
+        }
+      });
 
       if (inMiniApp) {
         window.Telegram.WebApp.ready();
@@ -181,7 +191,9 @@ function get_work_unit() {
 
   if (calcData.specialty == 'media') {
     if (calcData.media_service == 'translate-subtitles') {
-      return units['subtitles'];
+      return units['media-subtitles'];
+    } else if (calcData.media_service == 'translate-dubbed') {
+      return units['media-dub'];
     }
   }
 
@@ -245,7 +257,8 @@ function computeRates() {
   $('#choice-specialty').html(calcParams.specialtyLabels[calcData.specialty]).parent().show();
   for (const field in calcData) {
     if (field == 'work_amount') {
-      var label = $('#field-work-amount input').val() + ' ' + get_work_unit();
+      var work_amount = $('#field-work-amount input').val();
+      var label = formatNumber(work_amount) + ' ' + get_work_unit();
       $('#choice-' + field).html(label);
     } else {
       var label = $('.field-group[data-id="' + field + '"] .selected-item').html();
@@ -279,6 +292,15 @@ function validateFields() {
 
 function formatNumber(number, fraction) {
   return new Intl.NumberFormat('fa-IR', { maximumFractionDigits: fraction }).format(number);
+}
+
+function handleKeyPress(event){
+  var code = event.keyCode;
+  var zeroFa = '۰'.charCodeAt(0);
+  var diff = code - zeroFa;
+  if (0 <= diff && diff < 10) {
+    event.keyCode = '0'.charCodeAt(0) + diff;
+  }
 }
 
 initialize();
