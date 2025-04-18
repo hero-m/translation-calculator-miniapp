@@ -63,7 +63,7 @@ function initialize() {
 
   fetch_translation_rates().then(function (result) {
     if (result == null) {
-      if (inMiniApp) { 
+      if (inMiniApp) {
         // TODO: افزودن دکمه‌های تلاش مجدد و خروج
         Telegram.WebApp.showPopup({
           title: 'خطا',
@@ -79,6 +79,12 @@ function initialize() {
       calcParams.translationRates = result;
 
       $('.rates-version').text(result['version-title']);
+
+      if (inMiniApp) {
+        Telegram.WebApp.BackButton.onClick(function (event) {
+          stepBack();
+        });
+      }
       
       $('.actions-intro .action-btn').on('click', function (event) {
         stepnum = 2;
@@ -89,22 +95,14 @@ function initialize() {
         $('.header-specialty').text($(this).text());
         $('#card-input-form').addClass('card-visible');
         $('#card-intro').removeClass('card-visible');
+        
+        if (inMiniApp) {
+          Telegram.WebApp.BackButton.show();
+        }
       });
 
       $('.action-btn.choice-cancel').on('click', function (event) {
-        if (stepnum == 2) {
-          $('#card-intro').addClass('card-visible');
-          $('#card-input-form').removeClass('card-visible');
-          $('#card-input-form .selected-item').html(EMPTY_CHOICE).addClass('item-none');
-          $('#card-input-form input').val('');
-          $('#card-input-form .card-content').scrollTop();
-          calcData = {};
-          stepnum = 1;
-        } else if (stepnum == 3) {
-          stepnum = 2;
-          $('#card-input-form').addClass('card-visible');
-          $('#card-result').removeClass('card-visible');
-        }
+        stepBack();
       });
 
       $('.action-btn.choice-submit').on('click', function (event) {
@@ -306,6 +304,25 @@ function validateFields() {
   }
 
   return valid;
+}
+
+function stepBack() {
+  if (stepnum == 2) {
+    if (inMiniApp) {
+      Telegram.WebApp.BackButton.hide();
+    }
+    $('#card-intro').addClass('card-visible');
+    $('#card-input-form').removeClass('card-visible');
+    $('#card-input-form .selected-item').html(EMPTY_CHOICE).addClass('item-none');
+    $('#card-input-form input').val('');
+    $('#card-input-form .card-content').scrollTop();
+    calcData = {};
+    stepnum = 1;
+  } else if (stepnum == 3) {
+    stepnum = 2;
+    $('#card-input-form').addClass('card-visible');
+    $('#card-result').removeClass('card-visible');
+  }
 }
 
 function formatNumber(number, fraction) {
