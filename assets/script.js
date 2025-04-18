@@ -163,12 +163,6 @@ function initialize() {
         $("#field-work-amount .field-suffix").text(get_work_unit());
       });
 
-      document.getElementById('rates-download-link').addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true });
-      });
-      
       $('input[type="number"]').on('keypress', function (event) {
         var code = event.keyCode;
         var zeroFa = '۰'.charCodeAt(0);
@@ -179,6 +173,12 @@ function initialize() {
       });
 
       if (inMiniApp) {
+        $('a').on('click', function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true, try_browser: 'chrome' });
+        });
+
         window.Telegram.WebApp.ready();
       }
     }
