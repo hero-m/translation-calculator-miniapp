@@ -3,6 +3,13 @@
     --animation-time: 0.5s;
 }
 
+@counter-style persian-level-2 {
+    system: numeric;
+    symbols: "\6F0" "\6F1" "\6F2" "\6F3" "\6F4" "\6F5" "\6F6" "\6F7" "\6F8" "\6F9";
+    /* ۰ ۱ ۲ ۳ ۴ ۵ ۶ ۷ ۸ ۹ */
+    suffix: ") ";
+}
+
 svg {
     height: 0;
     position: absolute;
@@ -16,6 +23,11 @@ body {
 ol {
     list-style-type: persian;
     padding-right: 30px;
+}
+
+ol ol {
+    list-style-type: persian-level-2;
+
 }
 
 #overlay {
@@ -42,6 +54,16 @@ ol {
     background-image: url("../images/dots.png");
     background-position: center;
     background-repeat: repeat-y;
+}
+
+#help-modal ul,
+#help-modal ol {
+    padding-left: 1rem;
+    padding-right: 1.5rem;
+}
+
+#help-modal h4 {
+    text-align: center;
 }
 
 .card-box {
@@ -101,6 +123,7 @@ ol {
     vertical-align: middle;
     cursor: pointer;
     margin-right: 5px;
+    text-align: center;
 }
 
 .card-content {
@@ -365,10 +388,18 @@ ol {
     padding-right: 5px;
 }
 
+.lang-pair .pair-arrows {
+    color: transparent;
+    background-image: url('../images/dual-arrow.png');
+    width: 21px;
+    flex: 0 0 auto;
+}
+
 .lang-pair .pair-arrow {
     color: transparent;
     background-image: url('../images/left-arrow.png');
     width: 14px;
+    flex: 0 0 auto;
 }
 
 #card-result .lang-pair {

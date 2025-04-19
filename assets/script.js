@@ -172,11 +172,22 @@ function initialize() {
         }
       });
 
+      $('#card-input-form .help-icon').on('click', function (event) {
+        $('#help-modal .modal-body').html($('#help-' + calcData.specialty).html());
+      });
+
+      $('#help-general-button').on('click', function (event) {
+        $('#help-modal .modal-body').html($('#help-general').html());
+      })
+
       if (inMiniApp) {
         $('a').on('click', function (event) {
-          event.preventDefault();
-          event.stopPropagation();
-          window.Telegram.WebApp.openLink(this.getAttribute('href'), { try_instant_view: true, try_browser: 'chrome' });
+          var href = this.getAttribute('href');
+          if (href != null) {
+            event.preventDefault();
+            event.stopPropagation();
+            window.Telegram.WebApp.openLink(href, { try_instant_view: true, try_browser: 'chrome' });
+          }
         });
 
         window.Telegram.WebApp.ready();
