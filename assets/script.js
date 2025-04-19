@@ -145,18 +145,20 @@ function initialize() {
 
         if (dataId == 'text_service') {
           if (['analysis', 'edit-human', 'edit-machine'].includes(dataValue)) {
-            var level4 = $('#field-text-skill .skill-sp');
+            var level4edit = $('#field-text-skill .skill-sp');
 
-            $('#field-text-skill .selected-item').text(level4.text()).removeClass('item-none');
-            calcData['text_skill'] = level4.data('value');
+            $('#field-text-skill .selected-item').text(level4edit.text()).removeClass('item-none');
+            calcData['text_skill'] = level4edit.data('value');
 
             $('#field-text-skill .skill-set1').hide();
+            $('#field-text-skill .skill-sp').show();
             $('#field-text-skill .select-items').addClass('disabled');
           } else {
             $('#field-text-skill .selected-item').text(EMPTY_CHOICE).addClass('item-none');
             delete calcData['text_skill'];
 
             $('#field-text-skill .skill-set1').show();
+            $('#field-text-skill .skill-sp').hide();
             $('#field-text-skill .select-items').removeClass('disabled');
           }
         }
@@ -181,7 +183,7 @@ function initialize() {
         $('a').on('click', function (event) {
           var href = this.getAttribute('href');
           if (href != null) {
-            if (href.startsWith('http://t.me')) {
+            if (href.startsWith('https://t.me') || href.startsWith('http://t.me') || href.startsWith('tg://')) {
               window.Telegram.WebApp.openTelegramLink(href);
             } else if (href == '#help-modal') {
               showHelpModal();
