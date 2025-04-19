@@ -37,7 +37,7 @@ async function fetch_translation_rates() {
   var ratesId = split[split.length - 1];
   var cachedId = localStorage.getItem('cachedRatesId');
   if (cachedId != null && cachedId == ratesId) {
-    //return JSON.parse(localStorage.getItem('cachedRates'));
+    return JSON.parse(localStorage.getItem('cachedRates'));
   }
 
   try {
