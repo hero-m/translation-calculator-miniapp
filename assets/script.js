@@ -183,7 +183,7 @@ function initialize() {
       if (inMiniApp) {
         $('a').on('click', function (event) {
           var href = this.getAttribute('href');
-          if (href != null) {
+          if (href != null && href != "" && href != "#") {
             event.preventDefault();
             event.stopPropagation();
             window.Telegram.WebApp.openLink(href, { try_instant_view: true, try_browser: 'chrome' });
