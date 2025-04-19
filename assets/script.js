@@ -30,6 +30,7 @@ var calcData = {};
 var stepnum = 1;
 
 const errorModal = new bootstrap.Modal('#error-modal');
+const helpModal = new bootstrap.Modal('#help-modal');
 
 async function fetch_translation_rates() {
   var split = TRANSLATION_RATES_URL.split('/');
@@ -173,27 +174,45 @@ function initialize() {
       });
 
       $('#card-input-form .help-icon').on('click', function (event) {
-        $('#help-modal .modal-body').html($('#help-' + calcData.specialty).html());
+        showHelpModal();
       });
-
-      $('#help-general-button').on('click', function (event) {
-        $('#help-modal .modal-body').html($('#help-general').html());
-      })
 
       if (inMiniApp) {
         $('a').on('click', function (event) {
           var href = this.getAttribute('href');
-          if (href != null && href != "" && href != "#") {
-            event.preventDefault();
-            event.stopPropagation();
-            window.Telegram.WebApp.openLink(href, { try_instant_view: true, try_browser: 'chrome' });
+          if (href != null) {
+            if (href.startsWith('http://t.me')) {
+              window.Telegram.WebApp.openTelegramLink(href);
+            } else if (href == '#help-modal') {
+              showHelpModal();
+            } else if (href != "" && !href.startsWith("#")) {
+              window.Telegram.WebApp.openLink(href, { try_instant_view: true, try_browser: 'chrome' });
+            }
           }
+          
+          event.preventDefault();
+          event.stopPropagation();
         });
 
         window.Telegram.WebApp.ready();
+      } else {
+        $('#help-general-button').on('click', function (event) {
+          showHelpModal();
+        })
       }
     }
   });
+}
+
+function showHelpModal() {
+  if (stepnum == 1) {
+    $('#help-modal-label').html('توضیح نرخ‌نامه');
+    $('#help-modal .modal-body').html($('#help-general').html());
+  } else {
+    $('#help-modal-label').html('توضیحات محاسبهٔ نرخ ' + calcParams.specialtyLabels[calcData.specialty]);
+    $('#help-modal .modal-body').html($('#help-' + calcData.specialty).html());
+  }
+  helpModal.show();
 }
 
 function get_work_unit() {
@@ -247,22 +266,6 @@ function getMultiplier() {
   }
 
   return result;
-  if (calcData.specialty == 'text') {
-    var multipliers = calcParams.translationRates['multipliers']['text'];
-    return multipliers['text_skill'][calcData.text_skill] * 
-           multipliers['text_speed'][calcData.text_speed] * 
-           multipliers['text_topic'][calcData.text_topic] * 
-           multipliers['text_language'][calcData.text_language];
-  } else if (calcData.specialty == 'interpret') {
-    var multipliers = calcParams.translationRates['multipliers']['shared'];
-    return multipliers['shared_skill'][calcData.shared_skill] * 
-           multipliers['shared_topic'][calcData.shared_topic];
-  } else if (calcData.specialty == 'media') {
-  } else {
-    var multipliers = calcParams.translationRates['multipliers']['shared'];
-    return multipliers['shared_skill'][calcData.shared_skill] * 
-           multipliers['shared_topic'][calcData.shared_topic];
-  }
 }
 
 function computeRates() {
