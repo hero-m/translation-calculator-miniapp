@@ -1,4 +1,4 @@
-var TRANSLATION_RATES_URL = 'assets/rates-1404h2-v2.json';
+var TRANSLATION_RATES_URL = 'assets/rates-1404h2-v3.json';
 // var TRANSLATION_RATES_URL = 'https://hero-m.github.io/translation-calculator-miniapp/assets/rates-1404h2-v2.json';
 
 var CURRENCY = 'تومان';
